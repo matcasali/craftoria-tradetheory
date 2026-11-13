@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@NAME@</title>
+<style>
+  :root { --bg: #f4efe3; --ink: #1f2b4a; --soft: #64708f; --card: #fffdf7; --edge: #c9bf9f; --accent: #2e3e72; --gold: #b8862b; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #151a2a; --ink: #e9e4d4; --soft: #a6aec5; --card: #1d2440; --edge: #33406b; --accent: #9fb4ee; --gold: #e2b450; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 32px 16px 48px; }
+  h1 { margin: 0 0 4px; font-size: 28px; }
+  .sub { color: var(--soft); margin: 0 0 28px; }
+  .card { background: var(--card); border: 1px solid var(--edge); border-radius: 10px; padding: 18px 20px; margin-bottom: 18px; }
+  ol { padding-left: 20px; margin: 8px 0 0; }
+  li { margin: 6px 0; }
+  .url { display: flex; gap: 8px; margin: 10px 0 4px; }
+  .url input { flex: 1; min-width: 0; font: 14px ui-monospace, monospace; padding: 8px 10px; border: 1px solid var(--edge); border-radius: 6px; background: var(--bg); color: var(--ink); }
+  .url button { padding: 8px 14px; border: 0; border-radius: 6px; background: var(--accent); color: var(--card); font-weight: 600; cursor: pointer; }
+  .versions { color: var(--soft); font-size: 14px; }
+  h2 { font-size: 18px; margin: 0 0 6px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>@NAME@</h1>
+  <p class="sub">Craftoria with the Trade Theory player economy. It keeps itself up to date.</p>
+
+  <div class="card">
+    <h2>Install with Prism Launcher</h2>
+    <ol>
+      <li>In Prism, click <b>Add Instance</b>, then <b>Import</b>.</li>
+      <li>Paste this link and click <b>OK</b>:
+        <div class="url"><input id="u" readonly value="@ZIP_URL@"><button onclick="navigator.clipboard.writeText(document.getElementById('u').value);this.textContent='Copied'">Copy</button></div>
+      </li>
+      <li>Press <b>Launch</b>. The first launch downloads every mod (a few minutes); later ones only what changed.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>If something asks for you</h2>
+    <ol>
+      <li><b>"Press Launch again"</b>: the pack moved to a newer NeoForge and the instance was switched to it. Launch once more.</li>
+      <li><b>A window listing mods to download by hand</b>: a few mods don't allow automatic downloads. Click each link, save the file into the folder the window shows, then continue.</li>
+      <li>Give the game at least <b>8 GB</b> of memory (Edit instance, Settings, Java) if it runs out.</li>
+    </ol>
+  </div>
+
+  <p class="versions">Now: Craftoria @CRAFTORIA@ · Trade Theory @MOD@ · NeoForge @NEOFORGE@ · Minecraft 1.21.1</p>
+</main>
+</body>
+</html>

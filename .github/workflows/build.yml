@@ -1,0 +1,113 @@
+# Rebuilds the pack when Craftoria tags a new release (checked daily) or when this repo changes, checks it, and
+# commits it to site/. Cloudflare Pages publishes site/ from main. A failed check publishes nothing: players keep the
+# last good pack.
+name: Build the pack
+
+on:
+  schedule:
+    - cron: "17 4 * * *"   # daily, 04:17 UTC
+  workflow_dispatch:
+    inputs:
+      craftoria_tag:
+        description: "Build this Craftoria tag instead of the latest"
+        required: false
+  push:
+    branches: [main]
+    paths: ["extra/**", "scripts/**", "updater/**", "prism/**", "server/**", "pack.json", ".github/workflows/**"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      CRAFTORIA_TAG: ${{ github.event.inputs.craftoria_tag }}
+      FORCE_BUILD: ${{ github.event_name != 'schedule' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Is there a new Craftoria?
+        id: check
+        run: python scripts/build.py check
+
+      - uses: actions/setup-go@v5
+        if: steps.check.outputs.needed == 'true'
+        with:
+          go-version: stable
+          cache: false
+
+      - name: Install packwiz
+        if: steps.check.outputs.needed == 'true'
+        run: go install github.com/packwiz/packwiz@latest
+
+      - uses: actions/setup-java@v4
+        if: steps.check.outputs.needed == 'true'
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Build the pack
+        if: steps.check.outputs.needed == 'true'
+        run: python scripts/build.py build
+
+      - name: Build the updater, fetch the packwiz installer
+        if: steps.check.outputs.needed == 'true'
+        run: |
+          mkdir -p work/tools work/classes
+          javac --release 21 -d work/classes updater/src/*.java
+          jar --create --file work/tools/tradetheory-updater.jar --main-class TradeTheoryUpdater -C work/classes .
+          curl -fsSL -o work/tools/packwiz-installer-bootstrap.jar \
+            https://github.com/packwiz/packwiz-installer-bootstrap/releases/latest/download/packwiz-installer-bootstrap.jar
+
+      - name: Serve the pack locally
+        if: steps.check.outputs.needed == 'true'
+        run: |
+          cd work/pack
+          nohup packwiz serve --port 8080 > ../serve.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://localhost:8080/pack.toml > /dev/null && exit 0; sleep 1; done
+          cat ../serve.log; exit 1
+
+      - name: Check every client mod downloads
+        if: steps.check.outputs.needed == 'true'
+        run: |
+          mkdir -p work/client && cd work/client
+          java -jar ../tools/packwiz-installer-bootstrap.jar -g -s client http://localhost:8080/pack.toml
+
+      - name: Check every server mod downloads (and the server boots, once the EULA is accepted)
+        if: steps.check.outputs.needed == 'true'
+        env:
+          TRADETHEORY_MEMORY: 5G
+        run: |
+          mkdir -p work/server && cd work/server
+          cp ../tools/*.jar .
+          if [ "${{ vars.ACCEPT_MINECRAFT_EULA }}" = "true" ]; then
+            echo "eula=true" > eula.txt
+            timeout 2400 java -jar tradetheory-updater.jar --server --boot-test http://localhost:8080/pack.toml
+          else
+            java -jar packwiz-installer-bootstrap.jar -g -s server http://localhost:8080/pack.toml
+            echo "::notice::Server boot test skipped: set the repository variable ACCEPT_MINECRAFT_EULA to true to run it."
+          fi
+
+      - name: Make the site
+        if: steps.check.outputs.needed == 'true'
+        run: python scripts/build.py site
+
+      - name: Publish (commit site/; Cloudflare Pages deploys it)
+        if: steps.check.outputs.needed == 'true'
+        run: |
+          git config user.name "craftoria-tradetheory-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A site state
+          if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
+          git commit -m "Pack: Craftoria ${{ steps.check.outputs.tag }}"
+          git push
