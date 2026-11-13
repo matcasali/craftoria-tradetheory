@@ -13,7 +13,7 @@ Launch. Every launch brings the pack up to date.
   must boot) and committed to `site/`, which Cloudflare Pages publishes. A failed check publishes nothing.
 - **Trade Theory:** `scripts/publish-mod.sh` builds the mod and pushes its jar; the workflow does the rest.
 - **What Trade Theory needs newer than Craftoria ships** is raised in the pack: NeoForge (the minimum the
-  Trade Theory jar declares) and the mods in `extra/pins/` (GeckoLib), only while Craftoria's are older.
+  Trade Theory jar declares) and the mods in `extra/pins/` (none now: Trade Theory runs on Craftoria's GeckoLib), only while Craftoria's are older.
 - **Players (now):** a CurseForge-format zip: Craftoria's own for the release, with Trade Theory and pins added as
   overrides (`build.py curseforge`), attached to a GitHub release; the site's link redirects to the latest one.
   Prism imports it and updates it from the same link (Edit instance > Modpack > Update Pack) with its own downloader
