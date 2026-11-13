@@ -123,6 +123,21 @@ def build():
     for rp in (PACK / "resourcepacks").glob("*.pw.toml"):
         rp.write_text(re.sub(r'(?m)^side = "[^"]*"', 'side = "client"', rp.read_text(encoding="utf-8")), encoding="utf-8")
 
+    # client-only mods: Craftoria marks every mod "both" and lists the ones its server installer skips in
+    # server_files/server-setup-config.yaml (CurseForge project ids); those crash a dedicated server. Before the
+    # Modrinth swap, which drops the CurseForge project id.
+    client_only = client_only_projects(src)
+    marked = []
+    for f in (PACK / "mods").glob("*.pw.toml"):
+        text = f.read_text(encoding="utf-8")
+        project = tomllib.loads(text).get("update", {}).get("curseforge", {}).get("project-id")
+        if project in client_only:
+            f.write_text(re.sub(r'(?m)^side = "[^"]*"', 'side = "client"', text), encoding="utf-8")
+            marked.append(project)
+    print(f"  {len(marked)} client-only mods kept off the server (Craftoria lists {len(client_only)})")
+    for project in sorted(client_only - set(marked)):
+        print(f"    listed by Craftoria, not in the pack: CurseForge project {project}")
+
     # the same file from Modrinth where it's there (CurseForge's API refuses some files to anything but its app)
     moved = to_modrinth(PACK)
     print(f"  {moved} CurseForge files taken from Modrinth instead (identical files)")
@@ -142,6 +157,27 @@ def build():
 
     (WORK / "built.json").write_text(json.dumps({"tag": tag, "mod": mod_version, "versions": versions}))
     print(f"Pack built: Craftoria {tag}, Trade Theory {mod_version}, NeoForge {versions['neoforge']}")
+
+
+def client_only_projects(src):
+    """The CurseForge project ids Craftoria's server installer skips (install.formatSpecific.ignoreProject)."""
+    config = src / "server_files" / "server-setup-config.yaml"
+    if not config.exists():
+        sys.exit("Craftoria has no server_files/server-setup-config.yaml any more: find where it lists its client-only mods")
+    ids, inside = set(), False
+    for line in config.read_text(encoding="utf-8").splitlines():
+        if re.match(r"\s*ignoreProject:\s*$", line):
+            inside = True
+            continue
+        if inside:
+            m = re.match(r"\s*-\s*(\d+)", line)
+            if m:
+                ids.add(int(m.group(1)))
+            elif line.strip() and not line.strip().startswith("#"):
+                break
+    if not ids:
+        sys.exit("found no ignoreProject list in Craftoria's server-setup-config.yaml")
+    return ids
 
 
 def toml_str(text):
