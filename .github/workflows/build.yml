@@ -1,6 +1,6 @@
-# Rebuilds the pack when Craftoria tags a new release (checked daily) or when this repo changes, checks it, and
-# commits it to site/. Cloudflare Pages publishes site/ from main. A failed check publishes nothing: players keep the
-# last good pack.
+# Rebuilds the pack when Craftoria tags a new release (checked daily) or when this repo changes, checks it, releases
+# the players' CurseForge-format zip on GitHub and commits the server's packwiz pack to site/ (Cloudflare Pages
+# publishes site/ from main; its link to the zip leads to the latest release). A failed check publishes nothing.
 name: Build the pack
 
 on:
@@ -130,9 +130,22 @@ jobs:
               print(f"- [{m['name']}]({m['url']}): `{m['filename']}`")
           if not mods:
               print("- none any more")
-          print("\nPlayers are shown the same list by the installer at their next launch.")
+          print("\nPlayers see the same files in Prism's Blocked mods window when they install or update.")
           PY
           gh issue create --title "Download by hand: mods changed (Craftoria ${{ steps.check.outputs.tag }})" --body-file work/issue.md
+
+      - name: Make the players' pack (Craftoria's own CurseForge zip + Trade Theory)
+        if: steps.check.outputs.needed == 'true'
+        run: python scripts/build.py curseforge
+
+      - name: Release it (the site's link leads to the latest release)
+        if: steps.check.outputs.needed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title=$(python -c "import json; b = json.load(open('work/built.json')); print('Craftoria ' + b['tag'] + ' + Trade Theory ' + b['mod'])")
+          gh release create "pack-${{ github.run_number }}" work/Craftoria-TradeTheory.zip --latest --title "$title" \
+            --notes "Players: import or update it in Prism with https://craftoria-tradetheory.pages.dev/Craftoria-TradeTheory.zip"
 
       - name: Make the site
         if: steps.check.outputs.needed == 'true'

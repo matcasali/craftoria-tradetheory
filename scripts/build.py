@@ -2,17 +2,24 @@
 
     python scripts/build.py check     # prints needed=true|false and tag=<latest> (for GitHub Actions)
     python scripts/build.py build     # assembles pack/ from the tag (runs packwiz refresh)
-    python scripts/build.py manual L  # from installer log L: drops blocked resource packs, lists blocked mods, makes check/
-    python scripts/build.py site      # copies pack/ to site/ with the Prism instance zip, the server kit and the page
+    python scripts/build.py manual L  # from installer log L: lists the blocked files (download by hand), makes check/
+    python scripts/build.py curseforge  # the players' pack: Craftoria's own CurseForge zip + Trade Theory (for Prism)
+    python scripts/build.py site      # copies pack/ to site/ with the server kit, the page and the zip's redirect
 
 Craftoria (TeamAOF/Craftoria) is a packwiz pack: every release tag holds pack.toml, index.toml and the files they
 list. This pack is that, plus the Trade Theory jar from extra/files/, plus pins for what Trade Theory needs newer than
 Craftoria ships (NeoForge: the lower bound its jar declares; mods: extra/pins/). Settings are in pack.json.
 
+Two outputs. Players: a CurseForge-format zip, Craftoria's own for that release with Trade Theory (and pinned mods)
+added as override files, released on GitHub (too big for Pages); Prism imports it from the site's link (a redirect to
+the latest release), downloads with its own downloader, asks for blocked files in its own window, and updates it from
+the same link (Edit instance > Modpack > Update Pack). The server: the packwiz pack in site/, which the server kit
+keeps up to date.
+
 Downloads: Craftoria's files come from CurseForge, where some authors forbid downloads by anything but the CurseForge
 app. Every CurseForge file that exists byte for byte on Modrinth is taken from Modrinth instead (same file, same
-hash). What is still blocked shows up when the installer is tried on the pack (`manual`): blocked resource packs
-(cosmetic) are dropped, blocked mods stay and are listed (manual.json) for players and the server to download by hand.
+hash). What is still blocked shows up when the installer is tried on the pack (`manual`): those files stay in the
+pack and are listed (manual.json) for players and the server to download by hand (resource packs: players only).
 """
 import hashlib
 import io
@@ -113,11 +120,16 @@ def build():
     mod_version = re.search(r"tradetheory-(.+)\.jar$", jars[0].name).group(1)
 
     # pins: a mod Trade Theory needs newer than Craftoria ships
+    pins = []
     for pin in sorted((ROOT / "extra" / "pins").glob("*.pw.toml")):
         theirs = PACK / "mods" / pin.name
         ours = pin.read_text()
         if not theirs.exists() or version_key(pin_version(ours)) > version_key(pin_version(theirs.read_text())):
             print(f"  pin {pin.name}: {pin_version(theirs.read_text()) if theirs.exists() else 'absent'} -> {pin_version(ours)}")
+            replaced = tomllib.loads(theirs.read_text()).get("update", {}).get("curseforge", {}) if theirs.exists() else {}
+            d = tomllib.loads(ours)
+            pins.append({"filename": d["filename"], "url": d["download"]["url"], "hashFormat": d["download"]["hash-format"],
+                         "hash": d["download"]["hash"], "replacesCurseForgeProject": replaced.get("project-id")})
             theirs.write_text(ours)
 
     # resource packs only matter to players: the server never needs them
@@ -158,7 +170,8 @@ def build():
     (PACK / "pack.toml").write_text("\n".join(lines) + "\n")
     subprocess.run(["packwiz", "refresh"], cwd=PACK, check=True)
 
-    (WORK / "built.json").write_text(json.dumps({"tag": tag, "mod": mod_version, "versions": versions}))
+    (WORK / "built.json").write_text(json.dumps({"tag": tag, "mod": mod_version, "versions": versions, "pins": pins,
+                                                 "curseforgeZip": craftoria_curseforge_zip(src)}))
     print(f"Pack built: Craftoria {tag}, Trade Theory {mod_version}, NeoForge {versions['neoforge']}")
 
 
@@ -173,6 +186,52 @@ def neoforge_min(jar):
                 if m:
                     return m.group(1).strip()
     sys.exit(f"{jar.name} declares no NeoForge version range")
+
+
+def craftoria_curseforge_zip(src):
+    """The URL of Craftoria's own CurseForge pack for this release (its server installer's modpackUrl)."""
+    config = (src / "server_files" / "server-setup-config.yaml").read_text(encoding="utf-8")
+    m = re.search(r"(?m)^\s*modpackUrl:\s*(\S+)", config)
+    if not m:
+        sys.exit("Craftoria's server-setup-config.yaml names no modpackUrl: find where its CurseForge zip is")
+    return m.group(1)
+
+
+def curseforge():
+    """The players' pack: Craftoria's CurseForge zip, renamed, with Trade Theory and the pins as override files."""
+    built = json.loads((WORK / "built.json").read_text())
+    print(f"Craftoria's CurseForge pack: {built['curseforgeZip']}")
+    original = get(built["curseforgeZip"])
+    jar = next((ROOT / "extra" / "files").glob("tradetheory-*.jar"))
+    out = WORK / CONFIG["instanceZip"]
+    with zipfile.ZipFile(io.BytesIO(original)) as src, zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
+        manifest = json.loads(src.read("manifest.json"))
+        overrides = manifest.get("overrides") or "overrides"
+        # a pinned mod replaces Craftoria's copy: its file goes in as an override, their entry goes out
+        replaced = {p["replacesCurseForgeProject"] for p in built["pins"] if p.get("replacesCurseForgeProject")}
+        files = [f for f in manifest["files"] if f["projectID"] not in replaced]
+        if len(manifest["files"]) - len(files) != len(replaced):
+            sys.exit(f"pins replace CurseForge projects {sorted(replaced)}, but the manifest lists "
+                     f"{len(manifest['files']) - len(files)} of them")
+        manifest["files"] = files
+        manifest["name"], manifest["author"] = CONFIG["name"], CONFIG["author"]
+        manifest["version"] = f"{built['tag']}+tradetheory-{built['mod']}"
+        neoforge = [l for l in manifest["minecraft"]["modLoaders"] if l["id"].startswith("neoforge-")]
+        if len(neoforge) != 1:
+            sys.exit(f"expected one NeoForge loader in Craftoria's manifest, found {manifest['minecraft']['modLoaders']}")
+        neoforge[0]["id"] = "neoforge-" + built["versions"]["neoforge"]
+        z.writestr("manifest.json", json.dumps(manifest, indent=2))
+        for info in src.infolist():
+            if info.filename != "manifest.json":
+                z.writestr(info, src.read(info))
+        z.write(jar, f"{overrides}/mods/{jar.name}")
+        for pin in built["pins"]:
+            blob = get(pin["url"])
+            if hashlib.new(pin["hashFormat"], blob).hexdigest() != pin["hash"]:
+                sys.exit(f"{pin['filename']} doesn't match its pin's hash")
+            z.writestr(f"{overrides}/mods/{pin['filename']}", blob)
+    print(f"Players' pack: {out.name}, {len(files)} CurseForge files + overrides, NeoForge {built['versions']['neoforge']},"
+          f" {out.stat().st_size // (1024 * 1024)} MiB")
 
 
 def client_only_projects(src):
@@ -231,37 +290,35 @@ def to_modrinth(pack):
 
 
 def manual():
-    """From an installer log: drop the blocked resource packs, list the blocked mods, make check/ without them."""
+    """From an installer log: list the blocked files (mods and resource/shader packs), make check/ without them.
+
+    Nothing Craftoria lists is left out: a blocked file stays in the pack and is downloaded by hand once (the updater's
+    window picks it up from the Downloads folder; the server kit lists the server's). Packs are client-only.
+    """
     log = Path(sys.argv[2]).read_text(encoding="utf-8", errors="replace")
     blocked = {}
     for m in re.finditer(r"Please go to (https://www\.curseforge\.com/\S+) and save this file to (.+?)\s*$", log, re.M):
         path = m.group(2).strip().replace("\\", "/")
-        blocked[path.rsplit("/", 1)[-1]] = (path.rsplit("/", 2)[-2] if path.count("/") else "", m.group(1))
-    manual_mods, dropped = [], []
+        blocked[path.rsplit("/", 1)[-1]] = m.group(1)
+    manual_files = []
     for f in [*PACK.glob("mods/*.pw.toml"), *PACK.glob("resourcepacks/*.pw.toml"), *PACK.glob("shaderpacks/*.pw.toml")]:
         d = tomllib.loads(f.read_text(encoding="utf-8"))
         # only CurseForge files can be blocked (a file now taken from Modrinth isn't, whatever an older log says)
         if d["filename"] not in blocked or d["download"].get("mode") != "metadata:curseforge":
             continue
-        url = blocked[d["filename"]][1]
-        if f.parent.name == "mods":
-            manual_mods.append({"name": d["name"], "filename": d["filename"], "folder": "mods", "side": d.get("side", "both"),
-                                "url": url, "sha1": d["download"].get("hash", ""), "pwtoml": f.name})
-        else:
-            dropped.append(d["name"])
-            f.unlink()
-    for name in dropped:
-        print(f"  dropped (blocked, cosmetic): {name}")
-    for mod in manual_mods:
-        print(f"  manual download: {mod['name']} ({mod['url']})")
-    (WORK / "manual.json").write_text(json.dumps(sorted(manual_mods, key=lambda m: m["name"].lower()), indent=2))
-    subprocess.run(["packwiz", "refresh"], cwd=PACK, check=True)
-    # check/: the pack without the manual mods, for the strict checks (nothing else may fail)
+        manual_files.append({"name": d["name"], "filename": d["filename"], "folder": f.parent.name,
+                             "side": d.get("side", "both"), "url": blocked[d["filename"]],
+                             "sha1": d["download"].get("hash", ""), "pwtoml": f.name})
+    manual_files.sort(key=lambda m: (m["folder"] != "mods", m["name"].lower()))
+    for m in manual_files:
+        print(f"  download by hand ({m['folder']}, {m['side']}): {m['name']} ({m['url']})")
+    (WORK / "manual.json").write_text(json.dumps(manual_files, indent=2))
+    # check/: the pack without them, for the strict checks (nothing else may fail)
     check = WORK / "check"
     shutil.rmtree(check, ignore_errors=True)
     shutil.copytree(PACK, check)
-    for mod in manual_mods:
-        (check / "mods" / mod["pwtoml"]).unlink()
+    for m in manual_files:
+        (check / m["folder"] / m["pwtoml"]).unlink()
     subprocess.run(["packwiz", "refresh"], cwd=check, check=True)
 
 
@@ -274,17 +331,11 @@ def site():
     url = CONFIG["siteUrl"].rstrip("/") + "/pack.toml"
     neoforge = built["versions"]["neoforge"]
 
-    # the Prism instance players import from a link
-    cfg = (ROOT / "prism" / "instance.cfg").read_text().replace("@NAME@", CONFIG["name"]).replace("@PACK_URL@", url)
-    mmc = {"components": [{"important": True, "uid": "net.minecraft", "version": built["versions"]["minecraft"]},
-                          {"uid": "net.neoforged", "version": neoforge}], "formatVersion": 1}
-    with zipfile.ZipFile(SITE / CONFIG["instanceZip"], "w", zipfile.ZIP_DEFLATED) as z:
-        z.writestr("instance.cfg", cfg)
-        z.writestr("mmc-pack.json", json.dumps(mmc, indent=4))
-        z.write(tools / "tradetheory-updater.jar", "minecraft/tradetheory-updater.jar")
-        z.write(tools / "packwiz-installer-bootstrap.jar", "minecraft/packwiz-installer-bootstrap.jar")
+    # the players' pack (too big for Pages): this link stays, it leads to the latest GitHub release's zip
+    (SITE / "_redirects").write_text(f"/{CONFIG['instanceZip']} https://github.com/{CONFIG['repo']}/releases/latest/download/"
+                                     f"{CONFIG['instanceZip']} 302\n")
 
-    # the updater itself, for installs whose copy is older (it fetches and runs the published one)
+    # the server updater itself, for servers whose copy is older (it fetches and runs the published one)
     shutil.copy2(tools / "tradetheory-updater.jar", SITE / "tradetheory-updater.jar")
     (SITE / "tradetheory-updater.sha256").write_text(
         hashlib.sha256((tools / "tradetheory-updater.jar").read_bytes()).hexdigest() + "\n")
@@ -302,10 +353,10 @@ def site():
     (SITE / "manual.json").write_text(json.dumps(manual_mods, indent=2))
     if manual_mods:
         items = "".join(f'<li><a href="{m["url"]}">{m["name"]}</a> <span class="file">{m["filename"]}</span></li>' for m in manual_mods)
-        manual_html = ('<div class="card"><h2>Mods to download by hand</h2><p>Their authors allow downloads only from'
-                       ' CurseForge\'s website. At the first launch a window lists them: click <b>Open download page</b>'
-                       ' for each, then <b>Download</b> on CurseForge. The window picks the files up from your Downloads'
-                       f' folder and the game starts by itself.</p><ul>{items}</ul></div>')
+        manual_html = ('<div class="card"><h2>Files to download by hand</h2><p>Their authors allow downloads only from'
+                       ' CurseForge\'s website, so Prism shows a <b>Blocked mods</b> window while it installs or updates:'
+                       ' open each link and click Download; Prism finds the files in your Downloads folder and goes on.'
+                       f'</p><ul>{items}</ul></div>')
     else:
         manual_html = ""
     page = (ROOT / "prism" / "index.html").read_text()
@@ -322,4 +373,4 @@ def site():
 
 
 if __name__ == "__main__":
-    {"check": check, "build": build, "manual": manual, "site": site}[sys.argv[1]]()
+    {"check": check, "build": build, "manual": manual, "curseforge": curseforge, "site": site}[sys.argv[1]]()

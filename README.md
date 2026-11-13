@@ -14,7 +14,11 @@ Launch. Every launch brings the pack up to date.
 - **Trade Theory:** `scripts/publish-mod.sh` builds the mod and pushes its jar; the workflow does the rest.
 - **What Trade Theory needs newer than Craftoria ships** is raised in the pack: NeoForge (the minimum the
   Trade Theory jar declares) and the mods in `extra/pins/` (GeckoLib), only while Craftoria's are older.
-- **Players:** the Prism instance runs `tradetheory-updater.jar` before each launch. Missing download-by-hand mods
+- **Players (now):** a CurseForge-format zip: Craftoria's own for the release, with Trade Theory and pins added as
+  overrides (`build.py curseforge`), attached to a GitHub release; the site's link redirects to the latest one.
+  Prism imports it and updates it from the same link (Edit instance > Modpack > Update Pack) with its own downloader
+  and Blocked mods window. The text below describes the updater's player mode, which is no longer used.
+- **Players (updater, unused):** the Prism instance runs `tradetheory-updater.jar` before each launch. Missing download-by-hand mods
   (`manual.json`) get a window of ours that picks them up from the Downloads folder by their SHA-1; then packwiz
   runs without its own window (a small progress window, output in Prism's log) and brings mods and configs up to
   date; when the instance's NeoForge changed, this launch stops and the player presses Launch once more.

@@ -123,7 +123,7 @@ public final class TradeTheoryUpdater {
             if (!missing.isEmpty()) {
                 printManual(mc, missing);
                 if (!ui || !UpdaterUi.manualMods(mc, missing)) {
-                    System.out.println("[Trade Theory] Launch cancelled: the mods above are still missing.");
+                    System.out.println("[Trade Theory] Launch cancelled: the files above are still missing.");
                     return 1;
                 }
             }
@@ -278,7 +278,7 @@ public final class TradeTheoryUpdater {
                         updating.set(true);
                         say(console, "say The modpack was updated: the server restarts in 5 minutes.");
                         Thread.sleep(WARNING.toMillis() - 60_000);
-                        say(console, "say Restarting in 1 minute for the modpack update. Update your game before rejoining (Prism does it on launch).");
+                        say(console, "say Restarting in 1 minute for the modpack update. Before rejoining, update the pack in Prism: Edit instance, Modpack, Update Pack.");
                         Thread.sleep(60_000);
                         say(console, "stop");
                         return;
@@ -409,7 +409,7 @@ public final class TradeTheoryUpdater {
     }
 
     private static void printManual(Path root, List<ManualMod> missing) {
-        System.out.println("[Trade Theory] These mods must be downloaded by hand (their authors allow CurseForge only):");
+        System.out.println("[Trade Theory] These files must be downloaded by hand (their authors allow CurseForge only):");
         for (ManualMod m : missing) {
             System.out.println("  " + m.name() + ": open " + m.url() + ", download " + m.filename() + " and put it in "
                     + root.resolve(m.folder()));

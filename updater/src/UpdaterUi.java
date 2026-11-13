@@ -191,8 +191,7 @@ final class UpdaterUi {
             JPanel content = new JPanel(new BorderLayout(0, 14));
             content.setBorder(BorderFactory.createEmptyBorder(18, 20, 16, 20));
 
-            int n = waiting.size();
-            JLabel heading = new JLabel(n == 1 ? "1 mod to download by hand" : n + " mods to download by hand");
+            JLabel heading = new JLabel(count(waiting) + " to download by hand");
             heading.setFont(heading.getFont().deriveFont(Font.BOLD, heading.getFont().getSize2D() + 3f));
             JLabel intro = new JLabel("<html><body style='width:400px'>Their authors allow downloads only from CurseForge's"
                     + " website, so the pack can't fetch them for you. Open each page and click <b>Download</b>: the file"
@@ -260,9 +259,10 @@ final class UpdaterUi {
                     if (TradeTheoryUpdater.hasFile(root, mod)) found(mod);
                 }
                 if (waiting.isEmpty() || !Files.isDirectory(downloads)) return;
+                List<String> kinds = waiting.stream().map(m -> extension(m.filename())).distinct().toList();
                 List<Path> jars;
                 try (Stream<Path> s = Files.list(downloads)) {
-                    jars = s.filter(p -> p.getFileName().toString().toLowerCase(Locale.ROOT).endsWith(".jar"))
+                    jars = s.filter(p -> kinds.contains(extension(p.getFileName().toString())))
                             .filter(Files::isRegularFile).toList();
                 }
                 for (Path jar : jars) {
@@ -326,7 +326,7 @@ final class UpdaterUi {
         private void chooseFiles() {
             JFileChooser chooser = new JFileChooser(downloads.toFile());
             chooser.setMultiSelectionEnabled(true);
-            chooser.setFileFilter(new FileNameExtensionFilter("Mod files (*.jar)", "jar"));
+            chooser.setFileFilter(new FileNameExtensionFilter("Mods and resource packs (*.jar, *.zip)", "jar", "zip"));
             if (chooser.showOpenDialog(frame) != JFileChooser.APPROVE_OPTION) return;
             List<String> wrong = new ArrayList<>();
             for (java.io.File f : chooser.getSelectedFiles()) {
@@ -401,6 +401,24 @@ final class UpdaterUi {
         } catch (Exception ignored) {
         }
         return home.resolve("Downloads");
+    }
+
+    /** "2 mods and 7 resource packs", "1 mod", ... */
+    static String count(List<TradeTheoryUpdater.ManualMod> files) {
+        long mods = files.stream().filter(m -> m.folder().equals("mods")).count();
+        long packs = files.stream().filter(m -> m.folder().equals("resourcepacks")).count();
+        long shaders = files.size() - mods - packs;
+        List<String> parts = new ArrayList<>();
+        if (mods > 0) parts.add(mods + (mods == 1 ? " mod" : " mods"));
+        if (packs > 0) parts.add(packs + (packs == 1 ? " resource pack" : " resource packs"));
+        if (shaders > 0) parts.add(shaders + (shaders == 1 ? " shader pack" : " shader packs"));
+        return parts.size() <= 1 ? String.join("", parts)
+                : String.join(", ", parts.subList(0, parts.size() - 1)) + " and " + parts.get(parts.size() - 1);
+    }
+
+    private static String extension(String filename) {
+        int dot = filename.lastIndexOf('.');
+        return dot < 0 ? "" : filename.substring(dot).toLowerCase(Locale.ROOT);
     }
 
     private static String escape(String s) {
