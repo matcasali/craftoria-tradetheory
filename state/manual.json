@@ -16,5 +16,68 @@
     "url": "https://www.curseforge.com/minecraft/mc-mods/cataclysm-spellbooks/files/6925079",
     "sha1": "e13e0b853ccbf35e3e690c62a3391be3db0cf72e",
     "pwtoml": "cataclysm-spellbooks.pw.toml"
+  },
+  {
+    "name": "Better Sophisticated Backpack Upgrades (BSBU)",
+    "filename": "Better SB Upgrades.zip",
+    "folder": "resourcepacks",
+    "side": "client",
+    "url": "https://www.curseforge.com/minecraft/texture-packs/better-sophisticated-backpack-upgrades-bsbu/files/6375625",
+    "sha1": "327c49f6ef8b452c12ca47e100da8293fec6213d",
+    "pwtoml": "better-sophisticated-backpack-upgrades-bsbu.pw.toml"
+  },
+  {
+    "name": "Excalibur | Aquaculture 2",
+    "filename": "Aquaculture 2 Excalibur Support.zip",
+    "folder": "resourcepacks",
+    "side": "client",
+    "url": "https://www.curseforge.com/minecraft/texture-packs/excalibur-aquaculture-2/files/5916158",
+    "sha1": "9ffe7ce6d0cf4c946759a6da6c13ddcd1720c178",
+    "pwtoml": "excalibur-aquaculture-2.pw.toml"
+  },
+  {
+    "name": "Medieval Style Lootr",
+    "filename": "Medieval_Style_Lootr.zip",
+    "folder": "resourcepacks",
+    "side": "client",
+    "url": "https://www.curseforge.com/minecraft/texture-packs/medieval-style-lootr/files/6167488",
+    "sha1": "b42514bae17dafa68c8903c70aad5545602d856f",
+    "pwtoml": "medieval-style-lootr.pw.toml"
+  },
+  {
+    "name": "Pixel's Simple HUD",
+    "filename": "Pixel's Simple HUD.zip",
+    "folder": "resourcepacks",
+    "side": "client",
+    "url": "https://www.curseforge.com/minecraft/texture-packs/pixels-simple-hud/files/6566314",
+    "sha1": "6bb575ab158467e1e6bb08969f937d50b60aa82b",
+    "pwtoml": "pixels-simple-hud.pw.toml"
+  },
+  {
+    "name": "Pretty X Smart Pipez",
+    "filename": "Pretty X Smart Pipez.zip",
+    "folder": "resourcepacks",
+    "side": "client",
+    "url": "https://www.curseforge.com/minecraft/texture-packs/pretty-x-smart-pipez/files/6024643",
+    "sha1": "73e1a40d46b547b18b08cccc3347e021302b3bb5",
+    "pwtoml": "pretty-x-smart-pipez.pw.toml"
+  },
+  {
+    "name": "Pretty X Smart Pipez Mekanism Edition",
+    "filename": "Pretty X Smart Pipez Mekanism.zip",
+    "folder": "resourcepacks",
+    "side": "client",
+    "url": "https://www.curseforge.com/minecraft/texture-packs/pretty-x-smart-pipez-mekanism-edition/files/6139357",
+    "sha1": "f221acf545c879b5bfdf30e819747d64183ec78f",
+    "pwtoml": "pretty-x-smart-pipez-mekanism-edition.pw.toml"
+  },
+  {
+    "name": "Suren's Sophisticated Storage",
+    "filename": "Suren Sophisticated Storage v2.0.0 1.21-1.21.1.zip",
+    "folder": "resourcepacks",
+    "side": "client",
+    "url": "https://www.curseforge.com/minecraft/texture-packs/suren-ss/files/6301086",
+    "sha1": "1333fc555bf89f9c6e218b6b57a4a6d7867f69e6",
+    "pwtoml": "suren-ss.pw.toml"
   }
 ]
