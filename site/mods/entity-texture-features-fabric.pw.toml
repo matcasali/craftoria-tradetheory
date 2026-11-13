@@ -1,0 +1,13 @@
+name = "[ETF] Entity Texture Features - [Fabric & Forge]"
+filename = "entity_texture_features_1.21-neoforge-7.0.6.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/BVzZfTc1/versions/PDrlXJz8/entity_texture_features_1.21-neoforge-7.0.6.jar"
+hash-format = "sha1"
+hash = "fcf2df8ede6007d4ab8ae86013fe29b2d09f6682"
+
+[update]
+[update.modrinth]
+mod-id = "BVzZfTc1"
+version = "PDrlXJz8"

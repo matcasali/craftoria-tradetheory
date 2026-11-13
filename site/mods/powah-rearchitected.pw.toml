@@ -1,0 +1,13 @@
+name = "Powah! (Rearchitected)"
+filename = "Powah-6.2.7.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/KZO4S4DO/versions/K5Vhgari/Powah-6.2.7.jar"
+hash-format = "sha1"
+hash = "210644efe4936d299e486a811a7515ab73fd51cc"
+
+[update]
+[update.modrinth]
+mod-id = "KZO4S4DO"
+version = "K5Vhgari"

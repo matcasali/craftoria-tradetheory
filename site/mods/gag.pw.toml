@@ -1,0 +1,13 @@
+name = "Gadgets Against Grind"
+filename = "gag-neoforge-1.21.1-5.2.0.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/IeYLjzpn/versions/ND07gW3N/gag-neoforge-1.21.1-5.2.0.jar"
+hash-format = "sha1"
+hash = "64558e112de6c395a8f31afbef91f9e93ebc81fb"
+
+[update]
+[update.modrinth]
+mod-id = "IeYLjzpn"
+version = "ND07gW3N"

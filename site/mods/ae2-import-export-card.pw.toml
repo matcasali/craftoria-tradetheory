@@ -1,0 +1,13 @@
+name = "AE2 Import Export Card"
+filename = "ae2importexportcard-1.21.1-1.4.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/qelfSMnn/versions/IR5huwKg/ae2importexportcard-1.21.1-1.4.1.jar"
+hash-format = "sha1"
+hash = "d9acf9aa56528bd37f63ad23bdaba3184634b0e4"
+
+[update]
+[update.modrinth]
+mod-id = "qelfSMnn"
+version = "IR5huwKg"

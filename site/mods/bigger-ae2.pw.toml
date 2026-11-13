@@ -1,0 +1,13 @@
+name = "Bigger AE2"
+filename = "bigger_ae2-1.21.1-1.4.8.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/tHmKhHkk/versions/sE5JSHQL/bigger_ae2-1.21.1-1.4.8.jar"
+hash-format = "sha1"
+hash = "e63b188c3e7898a91a9a58493d6370c64bca4363"
+
+[update]
+[update.modrinth]
+mod-id = "tHmKhHkk"
+version = "sE5JSHQL"

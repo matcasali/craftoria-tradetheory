@@ -1,0 +1,13 @@
+name = "Ocean's Delight"
+filename = "oceansdelight-neoforge-1.0.3-1.21.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/DGiq4ZSW/versions/uYwpUE9A/oceansdelight-neoforge-1.0.3-1.21.jar"
+hash-format = "sha1"
+hash = "f74863b60417876c67f9cb438bc5a059e8e805c2"
+
+[update]
+[update.modrinth]
+mod-id = "DGiq4ZSW"
+version = "uYwpUE9A"

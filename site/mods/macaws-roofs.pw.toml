@@ -1,0 +1,13 @@
+name = "Macaw's Roofs"
+filename = "mcw-roofs-2.3.2-mc1.21.1neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/B8jaH3P1/versions/jiXRXiSt/mcw-roofs-2.3.2-mc1.21.1neoforge.jar"
+hash-format = "sha1"
+hash = "05806ff152fab56f7c1b4b215d772ea73611283d"
+
+[update]
+[update.modrinth]
+mod-id = "B8jaH3P1"
+version = "jiXRXiSt"

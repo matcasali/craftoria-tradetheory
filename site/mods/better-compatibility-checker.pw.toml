@@ -1,0 +1,13 @@
+name = "Better Compatibility Checker"
+filename = "bcc-21.1.7+mc1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/KJhXPbHQ/versions/CpGFL9bS/bcc-21.1.7%2Bmc1.21.1.jar"
+hash-format = "sha1"
+hash = "3fc12e96563fe2d1def05d68de2695ebcad4127f"
+
+[update]
+[update.modrinth]
+mod-id = "KJhXPbHQ"
+version = "CpGFL9bS"

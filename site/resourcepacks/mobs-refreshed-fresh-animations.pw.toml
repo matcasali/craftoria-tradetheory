@@ -1,0 +1,13 @@
+name = "Mobs Refreshed + Fresh Animations"
+filename = "mobs-refreshed-fa-v2.2.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/IZyRn6LS/versions/S5z6zWOq/mobs-refreshed-fa-v2.2.zip"
+hash-format = "sha1"
+hash = "415898b4b8ec3520429318d62cef7b37494c7bf9"
+
+[update]
+[update.modrinth]
+mod-id = "IZyRn6LS"
+version = "S5z6zWOq"

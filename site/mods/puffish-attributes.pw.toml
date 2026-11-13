@@ -1,0 +1,13 @@
+name = "Pufferfish's Attributes [Fabric & Forge & NeoForge]"
+filename = "puffish_attributes-0.8.0-1.21-neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/FCFcFw09/versions/O1QXCYre/puffish_attributes-0.8.0-1.21-neoforge.jar"
+hash-format = "sha1"
+hash = "656952d16a449de0fb603e1ea5a17b018d005eec"
+
+[update]
+[update.modrinth]
+mod-id = "FCFcFw09"
+version = "O1QXCYre"

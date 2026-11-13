@@ -1,0 +1,13 @@
+name = "Immersive UI"
+filename = "ImmersiveUI-NEOFORGE-0.3.3+1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/9wv7LuMc/versions/wtmSnIFo/ImmersiveUI-NEOFORGE-0.3.3%2B1.21.1.jar"
+hash-format = "sha1"
+hash = "5e9dda03c6142400b95dc3114675e07c943d554d"
+
+[update]
+[update.modrinth]
+mod-id = "9wv7LuMc"
+version = "wtmSnIFo"

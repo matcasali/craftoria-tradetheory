@@ -1,0 +1,13 @@
+name = "Legendary Tooltips [Neo/Forge]"
+filename = "LegendaryTooltips-1.21.1-neoforge-1.5.5.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/atHH8NyV/versions/BabRJO04/LegendaryTooltips-1.21.1-neoforge-1.5.5.jar"
+hash-format = "sha1"
+hash = "e7d3b66f3afe115c709749739f26f807ca8e827b"
+
+[update]
+[update.modrinth]
+mod-id = "atHH8NyV"
+version = "BabRJO04"

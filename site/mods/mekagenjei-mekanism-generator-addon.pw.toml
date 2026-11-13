@@ -1,0 +1,13 @@
+name = "MekaGenJei (Mekanism Generator addon)"
+filename = "mekagenjei-1.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/cud5E6NM/versions/FrkQmY5h/mekagenjei-1.2.jar"
+hash-format = "sha1"
+hash = "922aff2f71b69d76163728dfa5bf6c664268ff9d"
+
+[update]
+[update.modrinth]
+mod-id = "cud5E6NM"
+version = "FrkQmY5h"

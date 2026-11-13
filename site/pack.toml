@@ -1,0 +1,13 @@
+name = "Craftoria + Trade Theory"
+author = "Casupola, Raiden"
+version = "1.29.0+tradetheory-1.0.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "fb19a28bd7403f3da7a98d626e1f6cea71749e5ec47e641d2ab3d15789d19735"
+
+[versions]
+minecraft = "1.21.1"
+neoforge = "21.1.215"

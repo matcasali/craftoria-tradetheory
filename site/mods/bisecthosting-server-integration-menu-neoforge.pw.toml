@@ -1,0 +1,13 @@
+name = "BisectHosting Server Integration Menu [NEOFORGE]"
+filename = "BHMenu-NeoForge-1.21-2.4.4.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/yWSAtnfH/versions/V1gN58O4/BHMenu-NeoForge-1.21-2.4.4.jar"
+hash-format = "sha1"
+hash = "5edcf2d9007e99c5030b6a525cd701ddfa62f10d"
+
+[update]
+[update.modrinth]
+mod-id = "yWSAtnfH"
+version = "V1gN58O4"

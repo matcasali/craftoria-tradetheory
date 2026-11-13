@@ -1,0 +1,13 @@
+name = "Immersive Aircraft [Fabric/Forge]"
+filename = "immersive_aircraft-1.4.1+1.21.1-neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/x3HZvrj6/versions/Adq170b8/immersive_aircraft-1.4.1%2B1.21.1-neoforge.jar"
+hash-format = "sha1"
+hash = "bea2251c01fffd3460b483ac336a2454e7318a10"
+
+[update]
+[update.modrinth]
+mod-id = "x3HZvrj6"
+version = "Adq170b8"

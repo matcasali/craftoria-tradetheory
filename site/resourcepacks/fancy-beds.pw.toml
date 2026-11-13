@@ -1,0 +1,13 @@
+name = "Fancy Beds"
+filename = "Fancy_Beds-v4.1.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/hFoOkEdk/versions/l3RTAoaC/Fancy_Beds-v4.1.zip"
+hash-format = "sha1"
+hash = "b13c45c8187799e92b15d2c00720970f3116becb"
+
+[update]
+[update.modrinth]
+mod-id = "hFoOkEdk"
+version = "l3RTAoaC"

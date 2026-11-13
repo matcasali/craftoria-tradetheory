@@ -1,0 +1,13 @@
+name = "OpenBlocks Elevator"
+filename = "elevatorid-neoforge-1.21.1-1.11.4.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/hi2dSXTu/versions/NKEMiRIu/elevatorid-neoforge-1.21.1-1.11.4.jar"
+hash-format = "sha1"
+hash = "87a5504efcd51de55cd4215a103cbfcf717fa022"
+
+[update]
+[update.modrinth]
+mod-id = "hi2dSXTu"
+version = "NKEMiRIu"

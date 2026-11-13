@@ -1,0 +1,13 @@
+name = "Xaero's Maps x Waystones"
+filename = "xaeromaps_waystones-1.0.7+1.21.x-neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/iv2jCzkP/versions/XCnYShF9/xaeromaps_waystones-1.0.7%2B1.21.x-neoforge.jar"
+hash-format = "sha1"
+hash = "f4898bb753885ff2d94d56bb0d68332e7566b92d"
+
+[update]
+[update.modrinth]
+mod-id = "iv2jCzkP"
+version = "XCnYShF9"

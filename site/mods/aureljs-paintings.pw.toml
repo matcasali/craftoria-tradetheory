@@ -1,0 +1,13 @@
+name = "Aurelj's Paintings"
+filename = "AureljPaintings-1.0.4-1.21.x-neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/uiADepy3/versions/pikSJqmH/AureljPaintings-1.0.4-1.21.x-neoforge.jar"
+hash-format = "sha1"
+hash = "8a45d3811bf628fe4205e6bef6a9f26f445dfb53"
+
+[update]
+[update.modrinth]
+mod-id = "uiADepy3"
+version = "pikSJqmH"

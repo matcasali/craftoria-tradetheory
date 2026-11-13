@@ -1,0 +1,22 @@
+{
+  "options": {
+    "interactionIntervalMp": 5,
+    "interactionIntervalSp": 1,
+    "hotbarScope": "HOTBAR",
+    "extraSlotScope": "EXTRA",
+    "alwaysMatchByType": false,
+    "typeMatchTags": [
+      "enchantable/weapon",
+      "enchantable/mining",
+      "enchantable/armor"
+    ],
+    "scrollCreativeTabs": true,
+    "scrollRecipeBookTabs": true,
+    "scrollRecipeBookPages": true,
+    "useQuickCrafting": true,
+    "qcSingleCraftMode": "CURSOR_INVENTORY",
+    "useQuickTrading": true,
+    "dropKey": 342,
+    "matchingSlotsKey": 341
+  }
+}

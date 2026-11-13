@@ -1,0 +1,13 @@
+name = "CapeJS"
+filename = "capejs-1.1.0-1.21.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/BfY01IQg/versions/aB9aDCDH/capejs-1.1.0-1.21.jar"
+hash-format = "sha1"
+hash = "af31f8302716fd2a8e92edb61d71c12a0c9a00e4"
+
+[update]
+[update.modrinth]
+mod-id = "BfY01IQg"
+version = "aB9aDCDH"

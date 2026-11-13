@@ -1,0 +1,13 @@
+name = "Oh The Trees You'll Grow"
+filename = "Oh-The-Trees-Youll-Grow-neoforge-1.21.1-5.1.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/g8NOG5OR/versions/44blpeJ7/Oh-The-Trees-Youll-Grow-neoforge-1.21.1-5.1.2.jar"
+hash-format = "sha1"
+hash = "32e7cd9e32ac0e4007754b79f5b08f9754c81fda"
+
+[update]
+[update.modrinth]
+mod-id = "g8NOG5OR"
+version = "44blpeJ7"

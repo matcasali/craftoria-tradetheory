@@ -1,0 +1,13 @@
+name = "Sushi Go Crafting"
+filename = "sushigocrafting-1.21-0.6.5.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/G9WbcGQ2/versions/NdreRV66/sushigocrafting-1.21-0.6.5.jar"
+hash-format = "sha1"
+hash = "328da659d28e6a900d12f5638878998a796abd68"
+
+[update]
+[update.modrinth]
+mod-id = "G9WbcGQ2"
+version = "NdreRV66"

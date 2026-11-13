@@ -1,0 +1,13 @@
+name = "Golems Refreshed"
+filename = "golems-refreshed-v2.1.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/jfJzIg2G/versions/6GByDAcy/golems-refreshed-v2.1.zip"
+hash-format = "sha1"
+hash = "5effb45f8ede7d78988ba4bbc04f7db20cc9038d"
+
+[update]
+[update.modrinth]
+mod-id = "jfJzIg2G"
+version = "6GByDAcy"

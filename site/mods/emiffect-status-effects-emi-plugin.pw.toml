@@ -1,0 +1,13 @@
+name = "EMIffect (Status Effects EMI Plugin)"
+filename = "emiffect-neoforge-2.1.5+mc1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/705gWllI/versions/8t6Kpge9/emiffect-neoforge-2.1.5%2Bmc1.21.1.jar"
+hash-format = "sha1"
+hash = "4d48dec751310a0221254aca09d6325530e60731"
+
+[update]
+[update.modrinth]
+mod-id = "705gWllI"
+version = "8t6Kpge9"

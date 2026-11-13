@@ -1,0 +1,13 @@
+name = "Animal Feeding Trough [Fabric | Forge | Quilt | NeoForge]"
+filename = "animal_feeding_trough-1.1.2+1.21-neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/bRFWnJ87/versions/9u4bmtUp/animal_feeding_trough-1.1.2%2B1.21-neoforge.jar"
+hash-format = "sha1"
+hash = "6c29bbeab4b2c174d9f66d6a3e9ef4e136705c5b"
+
+[update]
+[update.modrinth]
+mod-id = "bRFWnJ87"
+version = "9u4bmtUp"

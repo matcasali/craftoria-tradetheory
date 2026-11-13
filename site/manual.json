@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Antique Trading Ship",
+    "filename": "antiquetradingship-1.4.0-neoforge-1.21.1.jar",
+    "folder": "mods",
+    "side": "both",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/antique-trading-ship/files/6445160",
+    "sha1": "7eb7f2255a37d43788103a00f5076d7bc20423c9",
+    "pwtoml": "antique-trading-ship.pw.toml"
+  },
+  {
+    "name": "Cataclysm: Spellbooks",
+    "filename": "cataclysm_spellbooks-1.1.9-1.21.jar",
+    "folder": "mods",
+    "side": "both",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/cataclysm-spellbooks/files/6925079",
+    "sha1": "e13e0b853ccbf35e3e690c62a3391be3db0cf72e",
+    "pwtoml": "cataclysm-spellbooks.pw.toml"
+  }
+]

@@ -1,0 +1,13 @@
+name = "Jumpy Boats"
+filename = "jumpboat-1.21.0-1.0.5.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/Z6clHfIZ/versions/6uiKWebq/jumpboat-1.21.0-1.0.5.jar"
+hash-format = "sha1"
+hash = "8fa562264f3ffd030773b2744ff6b42c52080ce6"
+
+[update]
+[update.modrinth]
+mod-id = "Z6clHfIZ"
+version = "6uiKWebq"

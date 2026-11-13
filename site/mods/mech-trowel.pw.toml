@@ -1,0 +1,13 @@
+name = "Mech Trowel"
+filename = "mechtrowel-1.2.4.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/nqFNRALS/versions/Jrg5ts9R/mechtrowel-1.2.4.jar"
+hash-format = "sha1"
+hash = "aeb70f36bbb1b1233fad55e41bdaf1b400ad9e6d"
+
+[update]
+[update.modrinth]
+mod-id = "nqFNRALS"
+version = "Jrg5ts9R"

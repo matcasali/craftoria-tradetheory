@@ -1,0 +1,13 @@
+name = "EMI Loot"
+filename = "emi_loot-0.7.8+1.21+neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/qbbO7Jns/versions/LNBoaKYt/emi_loot-0.7.8%2B1.21%2Bneoforge.jar"
+hash-format = "sha1"
+hash = "ba81fe23071416381c029e69abcb97a8eac567c0"
+
+[update]
+[update.modrinth]
+mod-id = "qbbO7Jns"
+version = "LNBoaKYt"

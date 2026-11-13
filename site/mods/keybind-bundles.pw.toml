@@ -1,0 +1,13 @@
+name = "KeyBind Bundles"
+filename = "keybindbundles-1.3.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/qs2zRREk/versions/29ZMr3Xd/keybindbundles-1.3.1.jar"
+hash-format = "sha1"
+hash = "f79e5ec268c784ef8eb0e3756602da7ea0ca1c3c"
+
+[update]
+[update.modrinth]
+mod-id = "qs2zRREk"
+version = "29ZMr3Xd"

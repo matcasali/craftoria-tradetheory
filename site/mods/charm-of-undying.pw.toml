@@ -1,0 +1,13 @@
+name = "Charm of Undying (Fabric/Forge/Quilt)"
+filename = "charmofundying-neoforge-9.1.0+1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/b5GyyYkp/versions/bfg1ghkD/charmofundying-neoforge-9.1.0%2B1.21.1.jar"
+hash-format = "sha1"
+hash = "891d5b49920401fd960b2d8819f490496a0986dc"
+
+[update]
+[update.modrinth]
+mod-id = "b5GyyYkp"
+version = "bfg1ghkD"

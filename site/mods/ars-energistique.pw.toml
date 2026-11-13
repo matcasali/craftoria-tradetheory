@@ -1,0 +1,13 @@
+name = "Ars Énergistique"
+filename = "arseng-2.1.1-beta.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/IJI3QuK8/versions/Bdb8HLZ0/arseng-2.1.1-beta.jar"
+hash-format = "sha1"
+hash = "e46e7cf5c4fc5f48d1b1ea025eb59c484811b2c6"
+
+[update]
+[update.modrinth]
+mod-id = "IJI3QuK8"
+version = "Bdb8HLZ0"

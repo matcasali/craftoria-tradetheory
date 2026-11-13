@@ -1,0 +1,13 @@
+name = "Particle Effects Reforged"
+filename = "particle_effects-1.21.1-NeoForge-1.0.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/QxYN8FNF/versions/dr8C4huF/particle_effects-1.21.1-NeoForge-1.0.1.jar"
+hash-format = "sha1"
+hash = "2e1f20b120c1743efe1f1d69ae08ecde2b89e300"
+
+[update]
+[update.modrinth]
+mod-id = "QxYN8FNF"
+version = "dr8C4huF"

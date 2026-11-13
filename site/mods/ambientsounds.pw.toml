@@ -1,0 +1,13 @@
+name = "AmbientSounds 6"
+filename = "AmbientSounds_NEOFORGE_v6.3.1_mc1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/fM515JnW/versions/Tn6XoNdJ/AmbientSounds_NEOFORGE_v6.3.1_mc1.21.1.jar"
+hash-format = "sha1"
+hash = "10e4fbb2da01933b226be9859898d24418c10ff7"
+
+[update]
+[update.modrinth]
+mod-id = "fM515JnW"
+version = "Tn6XoNdJ"

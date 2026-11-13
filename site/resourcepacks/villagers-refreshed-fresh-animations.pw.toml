@@ -1,0 +1,13 @@
+name = "Villagers Refreshed + Fresh Animations"
+filename = "villagers-refrehsed+FA-v1.0.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/LSTBJenG/versions/VunQiGCj/villagers-refrehsed%2BFA-v1.0.zip"
+hash-format = "sha1"
+hash = "21392fbfda384f084a680262ef419afdf347dfdd"
+
+[update]
+[update.modrinth]
+mod-id = "LSTBJenG"
+version = "VunQiGCj"

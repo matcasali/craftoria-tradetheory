@@ -1,0 +1,13 @@
+name = "Mob Grinding Utils: Vanillafied (16px)"
+filename = "Mob Grinding Utils Vanillafied.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/jcSuF0PJ/versions/h7GiZqQi/Mob%20Grinding%20Utils%20Vanillafied.zip"
+hash-format = "sha1"
+hash = "5355cbf9f982d12b245fffff4b1077e9c32ada0c"
+
+[update]
+[update.modrinth]
+mod-id = "jcSuF0PJ"
+version = "h7GiZqQi"

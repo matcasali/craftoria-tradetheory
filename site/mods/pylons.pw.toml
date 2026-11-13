@@ -1,0 +1,13 @@
+name = "Pylons"
+filename = "pylons-1.21.1-5.2.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/A82glthi/versions/ddnXfhvb/pylons-1.21.1-5.2.1.jar"
+hash-format = "sha1"
+hash = "16ba957445af7e56b67326e333068426a5b02e0c"
+
+[update]
+[update.modrinth]
+mod-id = "A82glthi"
+version = "ddnXfhvb"

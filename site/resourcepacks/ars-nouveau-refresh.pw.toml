@@ -1,0 +1,13 @@
+name = "Ars Nouveau Refresh"
+filename = "Ars Nouveau Refresh 1.2.0.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/HuL3Q7xv/versions/ZPMAK7tA/Ars%20Nouveau%20Refresh%201.2.0.zip"
+hash-format = "sha1"
+hash = "72b50baaa0fff8fd76eb71f5c4571ebb852c7168"
+
+[update]
+[update.modrinth]
+mod-id = "HuL3Q7xv"
+version = "ZPMAK7tA"

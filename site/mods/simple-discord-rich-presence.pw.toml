@@ -1,0 +1,13 @@
+name = "Simple Discord Rich Presence (Forge /  Fabric)"
+filename = "SimpleDiscordRichPresence-neoforge-87.0.1-build.49+mc1.21.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/SCAopByd/versions/LYkR3nRP/SimpleDiscordRichPresence-neoforge-87.0.1-build.49%2Bmc1.21.jar"
+hash-format = "sha1"
+hash = "c9d24801dc56876284f3e8f6c29e42a19732252a"
+
+[update]
+[update.modrinth]
+mod-id = "SCAopByd"
+version = "LYkR3nRP"

@@ -1,0 +1,13 @@
+name = "Euphoria Patches"
+filename = "EuphoriaPatcher-1.7.8-r5.6.1-neoforge.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/4H6sumDB/versions/ZJvpKsmV/EuphoriaPatcher-1.7.8-r5.6.1-neoforge.jar"
+hash-format = "sha1"
+hash = "75d8dfd62c79af485095adcc30351612024454fd"
+
+[update]
+[update.modrinth]
+mod-id = "4H6sumDB"
+version = "ZJvpKsmV"

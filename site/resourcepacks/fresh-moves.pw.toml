@@ -1,0 +1,13 @@
+name = "Fresh Moves"
+filename = "-1.21.2 Fresh Moves v3.1 (No Animated Eyes).zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/slufHzC2/versions/lHNQh6Gv/-1.21.2%20Fresh%20Moves%20v3.1%20%28No%20Animated%20Eyes%29.zip"
+hash-format = "sha1"
+hash = "2cb70d79e64504d0d6641271c067df9b1e495ab8"
+
+[update]
+[update.modrinth]
+mod-id = "slufHzC2"
+version = "lHNQh6Gv"

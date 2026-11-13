@@ -1,0 +1,13 @@
+name = "ModListMemory"
+filename = "modlistmemory-neoforge-1.0.0+1.21+bm-1.1.15.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/qap5C41G/versions/eqn0gkwx/modlistmemory-neoforge-1.0.0%2B1.21%2Bbm-1.1.15.jar"
+hash-format = "sha1"
+hash = "7a29ac8aa2c6be0e8426be729a47169d2c98cc04"
+
+[update]
+[update.modrinth]
+mod-id = "qap5C41G"
+version = "eqn0gkwx"

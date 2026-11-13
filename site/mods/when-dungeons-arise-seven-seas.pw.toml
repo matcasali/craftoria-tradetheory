@@ -1,0 +1,13 @@
+name = "When Dungeons Arise - Seven Seas"
+filename = "DungeonsAriseSevenSeas-1.21.x-1.0.4-neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/ZsrrjDbP/versions/erk04BGa/DungeonsAriseSevenSeas-1.21.x-1.0.4-neoforge.jar"
+hash-format = "sha1"
+hash = "ac9edb266a1360e9e4c80ed0b2f931f1505307eb"
+
+[update]
+[update.modrinth]
+mod-id = "ZsrrjDbP"
+version = "erk04BGa"

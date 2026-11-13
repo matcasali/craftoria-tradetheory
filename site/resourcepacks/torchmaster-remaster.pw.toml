@@ -1,0 +1,13 @@
+name = "Torchmaster Remaster"
+filename = "Torchmaster Remaster.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/VEiIeYzq/versions/ObbV22EM/Torchmaster%20Remaster_1.0.zip"
+hash-format = "sha1"
+hash = "27b1682e4c81adaab68bf71cad40bb340091775a"
+
+[update]
+[update.modrinth]
+mod-id = "VEiIeYzq"
+version = "ObbV22EM"

@@ -1,0 +1,13 @@
+name = "Modern World Creation"
+filename = "modernworldcreation_neoforge_2.0.1_MC_1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/xHskr2cS/versions/Vl334yh6/modernworldcreation_neoforge_2.0.1_MC_1.21.1.jar"
+hash-format = "sha1"
+hash = "169c22905fe7568aae14e285fac1173383dcd1ff"
+
+[update]
+[update.modrinth]
+mod-id = "xHskr2cS"
+version = "Vl334yh6"

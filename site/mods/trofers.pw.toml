@@ -1,0 +1,13 @@
+name = "Trofers"
+filename = "trofers-neoforge-8.0.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/wBU6XiJa/versions/FrbNhSab/trofers-neoforge-8.0.1.jar"
+hash-format = "sha1"
+hash = "ea73d6096217eb554110b758d829fca17542a47d"
+
+[update]
+[update.modrinth]
+mod-id = "wBU6XiJa"
+version = "FrbNhSab"

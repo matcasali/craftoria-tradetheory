@@ -1,0 +1,13 @@
+name = "Icons - Numerals"
+filename = "Icons - Numerals v.1.0.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/C54EmbDN/versions/jJHSOCe4/Icons%20-%20Numerals%20v.1.0.zip"
+hash-format = "sha1"
+hash = "6e81f15ee92bd6ba73ac16e691d6e275b51a3afe"
+
+[update]
+[update.modrinth]
+mod-id = "C54EmbDN"
+version = "jJHSOCe4"

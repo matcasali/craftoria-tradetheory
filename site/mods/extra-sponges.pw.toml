@@ -1,0 +1,13 @@
+name = "Extra Sponges"
+filename = "extrasponges-neoforge-1.21-1.6.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/poGrqY8n/versions/oMedWN0d/extrasponges-neoforge-1.21-1.6.1.jar"
+hash-format = "sha1"
+hash = "a9716730b2adc1952e87c795c150c5ed38b58f68"
+
+[update]
+[update.modrinth]
+mod-id = "poGrqY8n"
+version = "oMedWN0d"

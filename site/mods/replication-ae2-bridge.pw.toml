@@ -1,0 +1,13 @@
+name = "Replication AE2 Bridge"
+filename = "rep_ae2_bridge-1.7.0.1.0-neoforge-1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/fbHJQ19v/versions/VnYStuuf/rep_ae2_bridge-1.7.0.1.0-neoforge-1.21.1.jar"
+hash-format = "sha1"
+hash = "1b5ced46bf88a0e5507fd5d4cf52c00be66d8b82"
+
+[update]
+[update.modrinth]
+mod-id = "fbHJQ19v"
+version = "VnYStuuf"

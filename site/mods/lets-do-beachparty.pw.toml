@@ -1,0 +1,13 @@
+name = "[Let's Do] Beachparty"
+filename = "letsdo-beachparty-neoforge-2.1.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/GyKzAh3l/versions/hk7yuzyT/letsdo-beachparty-neoforge-2.1.2.jar"
+hash-format = "sha1"
+hash = "b8a7f2d86f841b1e97a19955526156deee82fc90"
+
+[update]
+[update.modrinth]
+mod-id = "GyKzAh3l"
+version = "hk7yuzyT"

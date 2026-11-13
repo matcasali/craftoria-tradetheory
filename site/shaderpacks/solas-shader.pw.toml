@@ -1,0 +1,13 @@
+name = "Solas Shader"
+filename = "Solas Shader V3.1b.zip"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/EpQFjzrQ/versions/fTE3WANB/Solas%20Shader%20V3.1b.zip"
+hash-format = "sha1"
+hash = "d92c721e575f645bc00a796c0511ec6729b59745"
+
+[update]
+[update.modrinth]
+mod-id = "EpQFjzrQ"
+version = "fTE3WANB"

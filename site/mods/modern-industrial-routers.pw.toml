@@ -1,0 +1,13 @@
+name = "Modern Industrial Routers"
+filename = "modernindustrialrouters-2.1.0.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/a5ptAy1S/versions/y89G6IBM/modernindustrialrouters-2.1.0.jar"
+hash-format = "sha1"
+hash = "e7871194f7f919ea8d74032f4e7158478267fa72"
+
+[update]
+[update.modrinth]
+mod-id = "a5ptAy1S"
+version = "y89G6IBM"

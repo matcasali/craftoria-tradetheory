@@ -1,0 +1,13 @@
+name = "Colorwheel"
+filename = "colorwheel-neoforge-1.1.1+mc1.21.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/BzHgFoGz/versions/2VaQzS9X/colorwheel-neoforge-1.1.1%2Bmc1.21.1.jar"
+hash-format = "sha1"
+hash = "60debab16c5e56e0a4ee32b2c290a297e3761f49"
+
+[update]
+[update.modrinth]
+mod-id = "BzHgFoGz"
+version = "2VaQzS9X"

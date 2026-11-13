@@ -1,0 +1,13 @@
+name = "(Bee's) Fine Armory"
+filename = "Fine Armoury v1.7.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/H0Q0y5Fn/versions/sXzklk0i/Fine%20Armoury%20v1.7.zip"
+hash-format = "sha1"
+hash = "b56e4d596a84228281e250d76cbf9bc645432256"
+
+[update]
+[update.modrinth]
+mod-id = "H0Q0y5Fn"
+version = "sXzklk0i"

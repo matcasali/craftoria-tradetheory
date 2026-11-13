@@ -1,0 +1,13 @@
+name = "Bridging Mod"
+filename = "BridgingMod-2.6.2+1.21.1.neoforge-release.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/lO3s8hjs/versions/GiR8tHNc/BridgingMod-2.6.2%2B1.21.1.neoforge-release.jar"
+hash-format = "sha1"
+hash = "18c4fdadf7d1b4632ae0e0914e4075847306b52f"
+
+[update]
+[update.modrinth]
+mod-id = "lO3s8hjs"
+version = "GiR8tHNc"
