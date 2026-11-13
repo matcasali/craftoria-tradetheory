@@ -1,6 +1,6 @@
-"""Builds the Craftoria + Trade Theory pack from Craftoria's latest release tag.
+"""Builds the Craftoria + Trade Theory pack from Craftoria's latest release (its newest version bump commit).
 
-    python scripts/build.py check     # prints needed=true|false and tag=<latest> (for GitHub Actions)
+    python scripts/build.py check     # prints needed=true|false and tag=<Craftoria's latest version> (for GitHub Actions)
     python scripts/build.py build     # assembles pack/ from the tag (runs packwiz refresh)
     python scripts/build.py manual L  # from installer log L: lists the blocked files (download by hand), makes check/
     python scripts/build.py curseforge  # the players' pack: Craftoria's own CurseForge zip + Trade Theory (for Prism)
@@ -45,7 +45,11 @@ UA = {"User-Agent": "craftoria-tradetheory-pack-builder"}
 
 
 def get(url):
-    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120) as r:
+    headers = dict(UA)
+    token = os.environ.get("GITHUB_TOKEN")
+    if token and url.startswith("https://api.github.com/"):
+        headers["Authorization"] = f"Bearer {token}"   # the API's anonymous limit is low on shared runners
+    with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=120) as r:
         return r.read()
 
 
@@ -53,10 +57,15 @@ def version_key(v):
     return [int(x) if x.isdigit() else x for x in re.split(r"[.\-+]", v)]
 
 
-def latest_tag():
-    tags = json.loads(get(f"https://api.github.com/repos/{CONFIG['craftoriaRepo']}/tags?per_page=100"))
-    names = [t["name"] for t in tags if re.fullmatch(r"\d+(\.\d+)+", t["name"])]
-    return max(names, key=version_key)
+def release():
+    """Craftoria's release to build: (version, git ref). Its tags stopped at 1.29.0; each release is a commit that bumps
+    version_info.json (and points server_files at that release's CurseForge zip). CRAFTORIA_TAG picks another ref."""
+    repo = CONFIG["craftoriaRepo"]
+    ref = os.environ.get("CRAFTORIA_TAG")
+    if not ref:
+        ref = json.loads(get(f"https://api.github.com/repos/{repo}/commits?path=version_info.json&per_page=1"))[0]["sha"]
+    version = json.loads(get(f"https://raw.githubusercontent.com/{repo}/{ref}/version_info.json"))["version"]
+    return version, ref
 
 
 def output(**values):
@@ -69,7 +78,7 @@ def output(**values):
 
 
 def check():
-    tag = os.environ.get("CRAFTORIA_TAG") or latest_tag()
+    tag, _ = release()
     built = STATE.read_text().strip() if STATE.exists() else ""
     forced = os.environ.get("FORCE_BUILD") == "true"
     output(tag=tag, needed=str(forced or tag != built).lower())
@@ -83,14 +92,14 @@ def pin_version(pw_toml_text):
 
 
 def build():
-    tag = os.environ.get("CRAFTORIA_TAG") or latest_tag()
-    print(f"Building from Craftoria {tag}")
+    tag, ref = release()
+    print(f"Building from Craftoria {tag} ({ref})")
     shutil.rmtree(WORK, ignore_errors=True)
     PACK.mkdir(parents=True)
 
-    # Craftoria at the tag: the files its index lists, and its ignore rules
+    # Craftoria at the release commit: the files its index lists, and its ignore rules
     src = WORK / "craftoria"
-    with tarfile.open(fileobj=io.BytesIO(get(f"https://codeload.github.com/{CONFIG['craftoriaRepo']}/tar.gz/refs/tags/{tag}"))) as tar:
+    with tarfile.open(fileobj=io.BytesIO(get(f"https://codeload.github.com/{CONFIG['craftoriaRepo']}/tar.gz/{ref}"))) as tar:
         tar.extractall(src, filter="data")
     src = next(src.iterdir())   # the tarball's single top folder
     upstream = tomllib.loads((src / "pack.toml").read_text())

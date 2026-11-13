@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       craftoria_tag:
-        description: "Build this Craftoria tag instead of the latest"
+        description: "Build Craftoria at this git ref (tag or commit) instead of its latest release"
         required: false
   push:
     branches: [main]
@@ -29,6 +29,7 @@ jobs:
     timeout-minutes: 75
     env:
       CRAFTORIA_TAG: ${{ github.event.inputs.craftoria_tag }}
+      GITHUB_TOKEN: ${{ github.token }}
       FORCE_BUILD: ${{ github.event_name != 'schedule' }}
     steps:
       - uses: actions/checkout@v4
