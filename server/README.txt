@@ -5,6 +5,8 @@
 3. Run start.bat (Windows) or start.sh (Linux/macOS) once. It downloads the pack's server mods and NeoForge,
    then stops and asks you to accept the Minecraft EULA: read https://aka.ms/MinecraftEULA, and if you agree,
    change eula=false to eula=true in eula.txt.
+   It also lists the mods to download by hand (their authors allow CurseForge's website only): download each
+   exact file from its link into the mods folder. Older versions of them are removed by later updates.
 4. Memory: 6 GB by default; change the -Xmx line in user_jvm_args.txt (e.g. -Xmx8G).
 5. Run start again. From then on:
    - every start brings the pack up to date first;

@@ -14,8 +14,11 @@ Launch. Every launch brings the pack up to date.
 - **Trade Theory:** `scripts/publish-mod.sh` builds the mod and pushes its jar; the workflow does the rest.
 - **What Trade Theory needs newer than Craftoria ships** is raised in the pack: NeoForge (the minimum the
   Trade Theory jar declares) and the mods in `extra/pins/` (GeckoLib), only while Craftoria's are older.
-- **Players:** the Prism instance runs `tradetheory-updater.jar` before each launch: packwiz brings mods and
-  configs up to date, and when the pack's NeoForge changed the instance is switched to it (launch once more).
+- **Players:** the Prism instance runs `tradetheory-updater.jar` before each launch. Missing download-by-hand mods
+  (`manual.json`) get a window of ours that picks them up from the Downloads folder by their SHA-1; then packwiz
+  runs without its own window (a small progress window, output in Prism's log) and brings mods and configs up to
+  date; when the instance's NeoForge changed, this launch stops and the player presses Launch once more.
+  Hand-downloaded files an update replaced are deleted (`.tradetheory/manual.txt`), since packwiz leaves them.
 - **Server:** the server kit (`server-kit.zip` on the site) does the same on each start, installs the pack's
   NeoForge server, and while running checks the pack every 10 minutes: on a change it warns players, restarts after
   5 minutes and comes back updated.

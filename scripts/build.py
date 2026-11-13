@@ -14,6 +14,7 @@ app. Every CurseForge file that exists byte for byte on Modrinth is taken from M
 hash). What is still blocked shows up when the installer is tried on the pack (`manual`): blocked resource packs
 (cosmetic) are dropped, blocked mods stay and are listed (manual.json) for players and the server to download by hand.
 """
+import hashlib
 import io
 import json
 import os
@@ -283,6 +284,11 @@ def site():
         z.write(tools / "tradetheory-updater.jar", "minecraft/tradetheory-updater.jar")
         z.write(tools / "packwiz-installer-bootstrap.jar", "minecraft/packwiz-installer-bootstrap.jar")
 
+    # the updater itself, for installs whose copy is older (it fetches and runs the published one)
+    shutil.copy2(tools / "tradetheory-updater.jar", SITE / "tradetheory-updater.jar")
+    (SITE / "tradetheory-updater.sha256").write_text(
+        hashlib.sha256((tools / "tradetheory-updater.jar").read_bytes()).hexdigest() + "\n")
+
     # the server kit
     with zipfile.ZipFile(SITE / "server-kit.zip", "w", zipfile.ZIP_DEFLATED) as z:
         for f in sorted((ROOT / "server").iterdir()):
@@ -296,10 +302,10 @@ def site():
     (SITE / "manual.json").write_text(json.dumps(manual_mods, indent=2))
     if manual_mods:
         items = "".join(f'<li><a href="{m["url"]}">{m["name"]}</a> <span class="file">{m["filename"]}</span></li>' for m in manual_mods)
-        manual_html = ('<div class="card"><h2>Mods to download by hand</h2><p>Their authors allow downloads only through'
-                       ' CurseForge, so at the first launch a window lists them. For each: open the link, download that'
-                       ' exact file and save it into the folder the window shows (the instance\'s <code>mods</code> folder),'
-                       f' then continue.</p><ul>{items}</ul></div>')
+        manual_html = ('<div class="card"><h2>Mods to download by hand</h2><p>Their authors allow downloads only from'
+                       ' CurseForge\'s website. At the first launch a window lists them: click <b>Open download page</b>'
+                       ' for each, then <b>Download</b> on CurseForge. The window picks the files up from your Downloads'
+                       f' folder and the game starts by itself.</p><ul>{items}</ul></div>')
     else:
         manual_html = ""
     page = (ROOT / "prism" / "index.html").read_text()
