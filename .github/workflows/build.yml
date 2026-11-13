@@ -160,4 +160,5 @@ jobs:
           git add -A site state
           if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
           git commit -m "Pack: Craftoria ${{ steps.check.outputs.tag }}"
+          git pull --rebase   # someone may have pushed while this ran
           git push

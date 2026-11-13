@@ -141,21 +141,23 @@ def build():
                          "hash": d["download"]["hash"], "replacesCurseForgeProject": replaced.get("project-id")})
             theirs.write_text(ours)
 
-    # resource packs only matter to players: the server never needs them
-    for rp in (PACK / "resourcepacks").glob("*.pw.toml"):
-        rp.write_text(re.sub(r'(?m)^side = "[^"]*"', 'side = "client"', rp.read_text(encoding="utf-8")), encoding="utf-8")
-
-    # client-only mods: Craftoria marks every mod "both" and lists the ones its server installer skips in
-    # server_files/server-setup-config.yaml (CurseForge project ids); those crash a dedicated server. Before the
-    # Modrinth swap, which drops the CurseForge project id.
+    # sides. Craftoria's files say "both" or, written by Prism's tools, nothing ('' is invalid for packwiz): resource
+    # and shader packs only matter to players; client-only mods are the ones its server installer skips
+    # (server_files/server-setup-config.yaml, CurseForge project ids), which crash a dedicated server; the rest is
+    # "both". Before the Modrinth swap, which drops the CurseForge project id.
     client_only = client_only_projects(src)
     marked = []
-    for f in (PACK / "mods").glob("*.pw.toml"):
-        text = f.read_text(encoding="utf-8")
-        project = tomllib.loads(text).get("update", {}).get("curseforge", {}).get("project-id")
-        if project in client_only:
-            f.write_text(re.sub(r'(?m)^side = "[^"]*"', 'side = "client"', text), encoding="utf-8")
+    for f in [*PACK.glob("mods/*.pw.toml"), *PACK.glob("resourcepacks/*.pw.toml"), *PACK.glob("shaderpacks/*.pw.toml")]:
+        d = tomllib.loads(f.read_text(encoding="utf-8"))
+        project = d.get("update", {}).get("curseforge", {}).get("project-id")
+        if f.parent.name != "mods":
+            side = "client"
+        elif project in client_only:
+            side = "client"
             marked.append(project)
+        else:
+            side = d.get("side") if d.get("side") in ("both", "client", "server") else "both"
+        set_side(f, side)
     print(f"  {len(marked)} client-only mods kept off the server (Craftoria lists {len(client_only)})")
     for project in sorted(client_only - set(marked)):
         print(f"    listed by Craftoria, not in the pack: CurseForge project {project}")
@@ -195,6 +197,17 @@ def neoforge_min(jar):
                 if m:
                     return m.group(1).strip()
     sys.exit(f"{jar.name} declares no NeoForge version range")
+
+
+def set_side(pw_toml, side):
+    """Sets a packwiz file's side (either quote style; added when missing)."""
+    text = pw_toml.read_text(encoding="utf-8")
+    line = f'side = "{side}"'
+    new, n = re.subn(r"""(?m)^side\s*=\s*(?:"[^"\n]*"|'[^'\n]*')[ \t]*$""", line, text, count=1)
+    if n == 0:
+        new = line + "\n" + text
+    if new != text:
+        pw_toml.write_text(new, encoding="utf-8")
 
 
 def craftoria_curseforge_zip(src):
