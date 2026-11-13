@@ -12,8 +12,8 @@ Launch. Every launch brings the pack up to date.
   built into the pack, checked (every client and server mod must download; with the EULA variable set, a server
   must boot) and committed to `site/`, which Cloudflare Pages publishes. A failed check publishes nothing.
 - **Trade Theory:** `scripts/publish-mod.sh` builds the mod and pushes its jar; the workflow does the rest.
-- **What Trade Theory needs newer than Craftoria ships** is raised in the pack: NeoForge (`minNeoForge` in
-  `pack.json`) and the mods in `extra/pins/` (GeckoLib), only while Craftoria's are older.
+- **What Trade Theory needs newer than Craftoria ships** is raised in the pack: NeoForge (the minimum the
+  Trade Theory jar declares) and the mods in `extra/pins/` (GeckoLib), only while Craftoria's are older.
 - **Players:** the Prism instance runs `tradetheory-updater.jar` before each launch: packwiz brings mods and
   configs up to date, and when the pack's NeoForge changed the instance is switched to it (launch once more).
 - **Server:** the server kit (`server-kit.zip` on the site) does the same on each start, installs the pack's

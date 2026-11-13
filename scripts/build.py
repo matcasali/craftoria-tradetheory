@@ -7,7 +7,7 @@
 
 Craftoria (TeamAOF/Craftoria) is a packwiz pack: every release tag holds pack.toml, index.toml and the files they
 list. This pack is that, plus the Trade Theory jar from extra/files/, plus pins for what Trade Theory needs newer than
-Craftoria ships (NeoForge, and the mods in extra/pins/). Settings are in pack.json.
+Craftoria ships (NeoForge: the lower bound its jar declares; mods: extra/pins/). Settings are in pack.json.
 
 Downloads: Craftoria's files come from CurseForge, where some authors forbid downloads by anything but the CurseForge
 app. Every CurseForge file that exists byte for byte on Modrinth is taken from Modrinth instead (same file, same
@@ -144,9 +144,11 @@ def build():
 
     # NeoForge: Craftoria's, unless Trade Theory needs a newer one
     versions = dict(upstream["versions"])
-    if version_key(CONFIG["minNeoForge"]) > version_key(versions.get("neoforge", "0")):
-        print(f"  NeoForge {versions.get('neoforge')} -> {CONFIG['minNeoForge']}")
-        versions["neoforge"] = CONFIG["minNeoForge"]
+    # (the oldest Trade Theory accepts, from its jar: a newer NeoForge than Craftoria tested is a risk for 500 mods)
+    needed = neoforge_min(jars[0])
+    if version_key(needed) > version_key(versions.get("neoforge", "0")):
+        print(f"  NeoForge {versions.get('neoforge')} -> {needed} (Trade Theory needs it)")
+        versions["neoforge"] = needed
 
     lines = [f'name = "{CONFIG["name"]}"', f'author = "{CONFIG["author"]}"', f'version = "{tag}+tradetheory-{mod_version}"',
              f'pack-format = "{upstream.get("pack-format", "packwiz:1.1.0")}"', "", "[index]", 'file = "index.toml"',
@@ -157,6 +159,19 @@ def build():
 
     (WORK / "built.json").write_text(json.dumps({"tag": tag, "mod": mod_version, "versions": versions}))
     print(f"Pack built: Craftoria {tag}, Trade Theory {mod_version}, NeoForge {versions['neoforge']}")
+
+
+def neoforge_min(jar):
+    """The lower bound of the NeoForge version range the mod jar declares."""
+    with zipfile.ZipFile(jar) as z:
+        mods = tomllib.loads(z.read("META-INF/neoforge.mods.toml").decode("utf-8"))
+    for deps in mods.get("dependencies", {}).values():
+        for dep in deps:
+            if dep.get("modId") == "neoforge":
+                m = re.match(r"\[([^,\]]+)", dep.get("versionRange", ""))
+                if m:
+                    return m.group(1).strip()
+    sys.exit(f"{jar.name} declares no NeoForge version range")
 
 
 def client_only_projects(src):
