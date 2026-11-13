@@ -1,13 +1,13 @@
 name = "Cryonic Config"
-filename = "cryonicconfig-neoforge-1.0.0+mc1.21.10.jar"
+filename = "cryonicconfig-neoforge-1.0.0+mc1.21.11.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/oEhQIkOs/versions/UkGnQY0h/cryonicconfig-neoforge-1.0.0%2Bmc1.21.10.jar"
+url = "https://cdn.modrinth.com/data/oEhQIkOs/versions/GW2YX76Y/cryonicconfig-neoforge-1.0.0%2Bmc1.21.11.jar"
 hash-format = "sha1"
-hash = "27937179df70ca2c7f359fa2af185fadc43bbb30"
+hash = "45b7240ad5cd561511ae3f80eea4cbfc110dae70"
 
 [update]
 [update.modrinth]
 mod-id = "oEhQIkOs"
-version = "UkGnQY0h"
+version = "GW2YX76Y"

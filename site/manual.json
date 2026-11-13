@@ -1,21 +1,12 @@
 [
   {
-    "name": "Antique Trading Ship",
-    "filename": "antiquetradingship-1.4.0-neoforge-1.21.1.jar",
+    "name": "Apothic Nerf",
+    "filename": "apothic-nerf-1.21.1-neo.jar",
     "folder": "mods",
     "side": "both",
-    "url": "https://www.curseforge.com/minecraft/mc-mods/antique-trading-ship/files/6445160",
-    "sha1": "7eb7f2255a37d43788103a00f5076d7bc20423c9",
-    "pwtoml": "antique-trading-ship.pw.toml"
-  },
-  {
-    "name": "Cataclysm: Spellbooks",
-    "filename": "cataclysm_spellbooks-1.1.9-1.21.jar",
-    "folder": "mods",
-    "side": "both",
-    "url": "https://www.curseforge.com/minecraft/mc-mods/cataclysm-spellbooks/files/6925079",
-    "sha1": "e13e0b853ccbf35e3e690c62a3391be3db0cf72e",
-    "pwtoml": "cataclysm-spellbooks.pw.toml"
+    "url": "https://www.curseforge.com/minecraft/mc-mods/apothic-nerf/files/8821106",
+    "sha1": "e2c676f13de33198e75affc85c2c27ca2a567da7",
+    "pwtoml": "apothic-nerf.pw.toml"
   },
   {
     "name": "Better Sophisticated Backpack Upgrades (BSBU)",
@@ -27,6 +18,15 @@
     "pwtoml": "better-sophisticated-backpack-upgrades-bsbu.pw.toml"
   },
   {
+    "name": "Craftoria Chinese Translation Resource",
+    "filename": "Craftoria Chinese Translation Resource.zip",
+    "folder": "resourcepacks",
+    "side": "client",
+    "url": "https://www.curseforge.com/minecraft/texture-packs/craftoria-chinese-translation-resource/files/7746282",
+    "sha1": "d824a09e6bcd84b00e83ff0d17876fee787bd6c1",
+    "pwtoml": "craftoria-chinese-translation-resource.pw.toml"
+  },
+  {
     "name": "Excalibur | Aquaculture 2",
     "filename": "Aquaculture 2 Excalibur Support.zip",
     "folder": "resourcepacks",
@@ -34,15 +34,6 @@
     "url": "https://www.curseforge.com/minecraft/texture-packs/excalibur-aquaculture-2/files/5916158",
     "sha1": "9ffe7ce6d0cf4c946759a6da6c13ddcd1720c178",
     "pwtoml": "excalibur-aquaculture-2.pw.toml"
-  },
-  {
-    "name": "Medieval Style Lootr",
-    "filename": "Medieval_Style_Lootr.zip",
-    "folder": "resourcepacks",
-    "side": "client",
-    "url": "https://www.curseforge.com/minecraft/texture-packs/medieval-style-lootr/files/6167488",
-    "sha1": "b42514bae17dafa68c8903c70aad5545602d856f",
-    "pwtoml": "medieval-style-lootr.pw.toml"
   },
   {
     "name": "Pixel's Simple HUD",

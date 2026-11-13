@@ -1,13 +1,13 @@
 name = "Animal Pens"
-filename = "animal_pen-neoforge-1.21-1.6.1.jar"
+filename = "animal_pen-neoforge-1.21-2.4.3.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/K5CAV4wi/versions/knjeiO42/animal_pen-neoforge-1.21-1.6.1.jar"
+url = "https://cdn.modrinth.com/data/K5CAV4wi/versions/tpzOtzDP/animal_pen-neoforge-1.21-2.4.3.jar"
 hash-format = "sha1"
-hash = "e5c9d45ed24fb659a5ce177294ed277698f47241"
+hash = "d307bdf87ad55e4ec789631c083c1b76ba0e26a9"
 
 [update]
 [update.modrinth]
 mod-id = "K5CAV4wi"
-version = "knjeiO42"
+version = "tpzOtzDP"

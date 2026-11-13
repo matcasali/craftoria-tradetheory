@@ -1,0 +1,13 @@
+name = "Logistics Network"
+filename = "logisticsnetworks-1.21.1-1.16.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/yJwXUwvS/versions/gzUlCk48/logisticsnetworks-1.21.1-1.16.1.jar"
+hash-format = "sha1"
+hash = "e8517928d6588ad26b77f9401e3a44fefee66f5d"
+
+[update]
+[update.modrinth]
+mod-id = "yJwXUwvS"
+version = "gzUlCk48"

@@ -1,13 +1,13 @@
 name = "Smithing Template Viewer for JEI/EMI"
-filename = "smithingtemplateviewer-1.0.3.jar"
+filename = "smithingtemplateviewer-1.0.4.jar"
 side = "client"
 
 [download]
-url = "https://cdn.modrinth.com/data/oJsYTCP3/versions/50hp2wB9/smithingtemplateviewer-1.0.3.jar"
+url = "https://cdn.modrinth.com/data/oJsYTCP3/versions/qVMQM4xq/smithingtemplateviewer-1.0.4.jar"
 hash-format = "sha1"
-hash = "1ee2fa37e522b645f7b17ed28062e58aac908ae8"
+hash = "4fea33926fafbd59f7434d1e4e64938ddee5d5db"
 
 [update]
 [update.modrinth]
 mod-id = "oJsYTCP3"
-version = "50hp2wB9"
+version = "qVMQM4xq"

@@ -1,13 +1,13 @@
 name = "Mekanism Extras"
-filename = "mekanism_extras-1.21.1-1.2.6.1.jar"
+filename = "mekanism_extras-1.21.1-1.4.1.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/HUZkxNTQ/versions/iooop7sq/mekanism_extras-1.21.1-1.2.6.1.jar"
+url = "https://cdn.modrinth.com/data/HUZkxNTQ/versions/fqPYikeY/mekanism_extras-1.21.1-1.4.1.jar"
 hash-format = "sha1"
-hash = "f43b7eeb9b2e3676083e418db77e91829c4b7b40"
+hash = "09a8aae6205513bbb29c29dc6be9487c598c451b"
 
 [update]
 [update.modrinth]
 mod-id = "HUZkxNTQ"
-version = "iooop7sq"
+version = "fqPYikeY"

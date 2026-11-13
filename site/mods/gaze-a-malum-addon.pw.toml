@@ -1,0 +1,13 @@
+name = "Gaze - A Malum Addon"
+filename = "gaze-1.1.7.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/NlvaJ5WE/versions/od4ltbRo/gaze-1.1.7.1.jar"
+hash-format = "sha1"
+hash = "a8cb3190bde157f78160ce65c202ce2d47fb2041"
+
+[update]
+[update.modrinth]
+mod-id = "NlvaJ5WE"
+version = "od4ltbRo"

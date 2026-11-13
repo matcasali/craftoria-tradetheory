@@ -1,0 +1,13 @@
+name = "Animus"
+filename = "animusnv-1.21.1-5.2.12.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/tL9SPLdV/versions/eJjztiDz/animusnv-1.21.1-5.2.12.jar"
+hash-format = "sha1"
+hash = "199bb73d3c8703daeff8d02e2da1eb113baa4d58"
+
+[update]
+[update.modrinth]
+mod-id = "tL9SPLdV"
+version = "eJjztiDz"

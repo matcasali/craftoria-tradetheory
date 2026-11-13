@@ -1,0 +1,13 @@
+name = "ExtendedAE-Plus"
+filename = "extendedae_plus-1.6.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/xr109llC/versions/o8U8Ekro/extendedae_plus-1.6.2.jar"
+hash-format = "sha1"
+hash = "da89d21be9947a2baf8e6b73d80ac3e52f57a64d"
+
+[update]
+[update.modrinth]
+mod-id = "xr109llC"
+version = "o8U8Ekro"

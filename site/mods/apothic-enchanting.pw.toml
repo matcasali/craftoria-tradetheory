@@ -1,13 +1,13 @@
 name = "Apothic Enchanting"
-filename = "ApothicEnchanting-1.21.1-1.5.0.jar"
+filename = "ApothicEnchanting-1.21.1-1.6.2.jar"
 side = "both"
 
 [download]
+url = "https://cdn.modrinth.com/data/pL8MtgqY/versions/2vH7csNR/ApothicEnchanting-1.21.1-1.6.2.jar"
 hash-format = "sha1"
-hash = "9ad1e1cbf2ee524d7edca1bcdece6deecf59ddc7"
-mode = "metadata:curseforge"
+hash = "2623af251d3ddeae1d8e710afa76afe753834bab"
 
 [update]
-[update.curseforge]
-file-id = 6926290
-project-id = 1063926
+[update.modrinth]
+mod-id = "pL8MtgqY"
+version = "2vH7csNR"

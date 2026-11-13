@@ -1,0 +1,13 @@
+name = "Delight Lib"
+filename = "delightlib-26.05.18-1.21-neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/rmDY6fYt/versions/wCR4QGbG/delightlib-26.05.18-1.21-neoforge.jar"
+hash-format = "sha1"
+hash = "67ee97c66767ae6cc15b0ad3867abfdbfa203ca4"
+
+[update]
+[update.modrinth]
+mod-id = "rmDY6fYt"
+version = "wCR4QGbG"

@@ -1,0 +1,13 @@
+name = "HazentouveLib"
+filename = "hazentouvelib-1.0.9.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/nZaIUw7C/versions/zSqYdmPI/hazentouvelib-1.0.9.jar"
+hash-format = "sha1"
+hash = "b5d68711babb604e368b918683eb89a4d1492077"
+
+[update]
+[update.modrinth]
+mod-id = "nZaIUw7C"
+version = "zSqYdmPI"

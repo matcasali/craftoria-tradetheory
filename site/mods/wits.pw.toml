@@ -1,13 +1,13 @@
 name = "WITS (What Is This Structure?)"
-filename = "wits-1.3.0+1.21-neoforge.jar"
+filename = "wits-neoforge-1.3.1.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/AVo2esap/versions/pNHwZjEV/wits-1.3.0%2B1.21-neoforge.jar"
+url = "https://cdn.modrinth.com/data/AVo2esap/versions/XbM2TRNR/wits-neoforge-1.3.1.jar"
 hash-format = "sha1"
-hash = "4fb6e087325c70031fdb7fe6eb5278c5038511dd"
+hash = "a03b6bd7d05bb1955036a9cd37e0e14121193d3e"
 
 [update]
 [update.modrinth]
 mod-id = "AVo2esap"
-version = "pNHwZjEV"
+version = "XbM2TRNR"

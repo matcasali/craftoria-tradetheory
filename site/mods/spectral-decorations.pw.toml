@@ -1,0 +1,13 @@
+name = "Spectral Decorations"
+filename = "SpectralDecorations-1.10.0-1.21.1-neo.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/OtSTiI0D/versions/O58X367S/SpectralDecorations-1.10.0-1.21.1-neo.jar"
+hash-format = "sha1"
+hash = "e5630bb55c2f76e3345fbd84fca6c444880882b4"
+
+[update]
+[update.modrinth]
+mod-id = "OtSTiI0D"
+version = "O58X367S"

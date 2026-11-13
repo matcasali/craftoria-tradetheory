@@ -1,6 +1,6 @@
 name = "Modern World Creation"
 filename = "modernworldcreation_neoforge_2.0.1_MC_1.21.1.jar"
-side = "both"
+side = "client"
 
 [download]
 url = "https://cdn.modrinth.com/data/xHskr2cS/versions/Vl334yh6/modernworldcreation_neoforge_2.0.1_MC_1.21.1.jar"

@@ -1,13 +1,13 @@
 name = "Aquaculture 2"
-filename = "Aquaculture-1.21.1-2.7.16.jar"
+filename = "Aquaculture-1.21.1-2.7.21.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/Vl1uNAuy/versions/8Bj94kRQ/Aquaculture-1.21.1-2.7.16.jar"
+url = "https://cdn.modrinth.com/data/Vl1uNAuy/versions/5pbz0ETj/Aquaculture-1.21.1-2.7.21.jar"
 hash-format = "sha1"
-hash = "f63114c60bcf31272813fb42625ba7007a32c8bc"
+hash = "93c2043c6a5cfbfbfba93321d044bc61d8a6547b"
 
 [update]
 [update.modrinth]
 mod-id = "Vl1uNAuy"
-version = "8Bj94kRQ"
+version = "5pbz0ETj"

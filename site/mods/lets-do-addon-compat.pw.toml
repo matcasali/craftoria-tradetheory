@@ -1,13 +1,13 @@
 name = "[Let's Do Addon] Compat"
-filename = "letsdocompat-neoforge-2.3.0.jar"
+filename = "letsdocompat-neoforge-2.3.1.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/FNi5IMiX/versions/vOZDr10P/letsdocompat-neoforge-2.3.0.jar"
+url = "https://cdn.modrinth.com/data/FNi5IMiX/versions/vJUgfTU0/letsdocompat-neoforge-2.3.1.jar"
 hash-format = "sha1"
-hash = "f0b2f76569920d81784c8fdff06562210ba51635"
+hash = "5bc9d88a18793a808ecce9bab0218995c1b9f5c3"
 
 [update]
 [update.modrinth]
 mod-id = "FNi5IMiX"
-version = "vOZDr10P"
+version = "vJUgfTU0"

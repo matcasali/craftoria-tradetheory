@@ -1,13 +1,13 @@
 name = "Pufferfish's Unofficial Additions"
-filename = "pufferfish_unofficial_additions-1.21.1-2.2.7.jar"
+filename = "pufferfish_unofficial_additions-1.21.1-2.2.8.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/IAao6ECB/versions/C7a3w6xb/pufferfish_unofficial_additions-1.21.1-2.2.7.jar"
+url = "https://cdn.modrinth.com/data/IAao6ECB/versions/Gg8lwHYR/pufferfish_unofficial_additions-1.21.1-2.2.8.jar"
 hash-format = "sha1"
-hash = "4c58709ce135fdf9a16303a5ccb4430cfbb1e392"
+hash = "b273ea691e027b33fb9a19fb966c5f072edfa5c0"
 
 [update]
 [update.modrinth]
 mod-id = "IAao6ECB"
-version = "C7a3w6xb"
+version = "Gg8lwHYR"

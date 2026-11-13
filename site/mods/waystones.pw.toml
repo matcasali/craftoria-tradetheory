@@ -1,13 +1,13 @@
 name = "Waystones"
-filename = "waystones-neoforge-1.21.1-21.1.24.jar"
+filename = "waystones-neoforge-1.21.1-21.1.44.jar"
 side = "both"
 
 [download]
+url = "https://cdn.modrinth.com/data/LOpKHB2A/versions/XKHZmiJm/waystones-neoforge-1.21.1-21.1.44.jar"
 hash-format = "sha1"
-hash = "62797b739f6ae007d8479c43935d2879a82b1b1b"
-mode = "metadata:curseforge"
+hash = "e36886b2725d9959dd9262c9b5bf30b24e7443e8"
 
 [update]
-[update.curseforge]
-file-id = 7263885
-project-id = 245755
+[update.modrinth]
+mod-id = "LOpKHB2A"
+version = "XKHZmiJm"

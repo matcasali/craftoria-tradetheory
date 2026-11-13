@@ -1,13 +1,13 @@
 name = "Mech Trowel"
-filename = "mechtrowel-1.2.4.jar"
+filename = "mechtrowel-1.4.0-1.21.1-neoforge.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/nqFNRALS/versions/Jrg5ts9R/mechtrowel-1.2.4.jar"
 hash-format = "sha1"
-hash = "aeb70f36bbb1b1233fad55e41bdaf1b400ad9e6d"
+hash = "db813918f671ce0aa59eb20035e17ea41afa30a0"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "nqFNRALS"
-version = "Jrg5ts9R"
+[update.curseforge]
+file-id = 8857405
+project-id = 1288799

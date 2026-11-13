@@ -1,0 +1,13 @@
+name = "Myotus Lib"
+filename = "Myotus-1.21.1-19.1.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/32YA23Pp/versions/uqvIHRrm/Myotus-1.21.1-19.1.1.jar"
+hash-format = "sha1"
+hash = "d00556870d4c4da2d6966fbebccb4670c3680360"
+
+[update]
+[update.modrinth]
+mod-id = "32YA23Pp"
+version = "uqvIHRrm"

@@ -3,11 +3,11 @@ filename = "Medieval_Style_Lootr.zip"
 side = "client"
 
 [download]
+url = "https://cdn.modrinth.com/data/AJQBwNIi/versions/N7HOAO7o/Medieval_Style_Lootr.zip"
 hash-format = "sha1"
-hash = "b42514bae17dafa68c8903c70aad5545602d856f"
-mode = "metadata:curseforge"
+hash = "cb8cc5682de7419eaf72c1f0b14652d0189c3dac"
 
 [update]
-[update.curseforge]
-file-id = 6167488
-project-id = 867471
+[update.modrinth]
+mod-id = "AJQBwNIi"
+version = "N7HOAO7o"

@@ -1,0 +1,13 @@
+name = "Lodestone"
+filename = "lodestone-1.21.1-1.8.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/bN3xUWdo/versions/CohX6yP1/lodestone-1.21.1-1.8.2.jar"
+hash-format = "sha1"
+hash = "d1f7c638fac5192e01b1873f27e694a3c262ad11"
+
+[update]
+[update.modrinth]
+mod-id = "bN3xUWdo"
+version = "CohX6yP1"

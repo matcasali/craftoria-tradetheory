@@ -1,13 +1,13 @@
 name = "Modonomicon"
-filename = "modonomicon-1.21.1-neoforge-1.117.2.jar"
+filename = "modonomicon-1.21.1-neoforge-1.120.4.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/692GClaE/versions/dVH3KPPg/modonomicon-1.21.1-neoforge-1.117.2.jar"
+url = "https://cdn.modrinth.com/data/692GClaE/versions/jH6bsw4F/modonomicon-1.21.1-neoforge-1.120.4.jar"
 hash-format = "sha1"
-hash = "64e76113914720034b942ff8008acf8387b7f8c9"
+hash = "1377fec77ba0cb3e4adda0da9ce2f14847e21e40"
 
 [update]
 [update.modrinth]
 mod-id = "692GClaE"
-version = "dVH3KPPg"
+version = "jH6bsw4F"

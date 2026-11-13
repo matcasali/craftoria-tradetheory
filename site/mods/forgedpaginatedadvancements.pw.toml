@@ -1,0 +1,13 @@
+name = "ForgedPaginatedAdvancements"
+filename = "ForgedPaginatedAdvancements-0.0.2+1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/CV3BPuYF/versions/aAD33IiT/ForgedPaginatedAdvancements-0.0.2%2B1.21.1.jar"
+hash-format = "sha1"
+hash = "a7c1d2d16babb7edb51c2fe0364a8ac25920b31c"
+
+[update]
+[update.modrinth]
+mod-id = "CV3BPuYF"
+version = "aAD33IiT"

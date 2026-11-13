@@ -1,0 +1,13 @@
+name = "EMI QoL Tweaks"
+filename = "emi-qol-tweaks-neoforge-1.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/vrv0jJyI/versions/TP3aTluA/emi-qol-tweaks-neoforge-1.2.jar"
+hash-format = "sha1"
+hash = "3194afe3f6570b92473c44592cb690b32c3a22ae"
+
+[update]
+[update.modrinth]
+mod-id = "vrv0jJyI"
+version = "TP3aTluA"

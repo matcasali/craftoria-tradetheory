@@ -5,7 +5,6 @@
 		# Colors recently selected in the color selector
 		# Default: []
 		recents: [I;
-			-8192251
 			-4456533
 			-7602305
 			-5701709
@@ -21,6 +20,7 @@
 			-1
 			-45243
 			-24678
+			-8192136
 		]
 	}
 	sidebar: {
@@ -37,12 +37,17 @@
 			}
 			"ftbessentials:trash_can": {
 				enabled: true
-				x: 2
+				x: 3
 				y: 1
 			}
 			"ftbultimine:config": {
 				enabled: true
 				x: 1
+				y: 1
+			}
+			"ftbteams:team_lives": {
+				enabled: true
+				x: 2
 				y: 1
 			}
 			"ftblibrary:toggle/gamemode": {
@@ -82,7 +87,7 @@
 			}
 			"createultimine:config": {
 				enabled: true
-				x: 3
+				x: 4
 				y: 1
 			}
 			"leaderboards:leaderboards": {

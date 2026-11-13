@@ -1,13 +1,13 @@
 name = "EMI"
-filename = "emi-1.1.22+1.21.1+neoforge.jar"
+filename = "emi-1.1.24+1.21.1+neoforge.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/fRiHVvU7/versions/ouSj7NfF/emi-1.1.22%2B1.21.1%2Bneoforge.jar"
+url = "https://cdn.modrinth.com/data/fRiHVvU7/versions/5sIPA1To/emi-1.1.24%2B1.21.1%2Bneoforge.jar"
 hash-format = "sha1"
-hash = "cbbd038194cd63249db185c53b1d50a1767f80a3"
+hash = "3fd494b37027dfbc7f78414d7cbf251c9eb6738a"
 
 [update]
 [update.modrinth]
 mod-id = "fRiHVvU7"
-version = "ouSj7NfF"
+version = "5sIPA1To"

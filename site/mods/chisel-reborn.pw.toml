@@ -1,13 +1,13 @@
 name = "Chisel Reborn [Forge/Fabric/NeoForge]"
-filename = "chisel-neoforge-2.0.0+mc1.21.1.jar"
+filename = "chisel-neoforge-2.0.1+mc1.21.1.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/4KWv7wbN/versions/uBrND6yn/chisel-neoforge-2.0.0%2Bmc1.21.1.jar"
+url = "https://cdn.modrinth.com/data/4KWv7wbN/versions/4ItA9dOc/chisel-neoforge-2.0.1%2Bmc1.21.1.jar"
 hash-format = "sha1"
-hash = "44e432ddc1f6fa9cf05201a9aef3ae4c5784cc9d"
+hash = "def703bf88cb3bb2960260418e8b36fe47a53dfd"
 
 [update]
 [update.modrinth]
 mod-id = "4KWv7wbN"
-version = "uBrND6yn"
+version = "4ItA9dOc"

@@ -1,13 +1,13 @@
 name = "Ars Controle"
-filename = "ars_controle-1.21.1-1.6.13.jar"
+filename = "ars_controle-1.21.1-1.6.16.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/gL8ijqNQ/versions/wvMlX85B/ars_controle-1.21.1-1.6.13.jar"
+url = "https://cdn.modrinth.com/data/gL8ijqNQ/versions/r7YxZN9m/ars_controle-1.21.1-1.6.16.jar"
 hash-format = "sha1"
-hash = "043dfbed5481c814cab6826fb0c27f42f03eb4b2"
+hash = "795567371450debec83fe634fd0114c295f7da5a"
 
 [update]
 [update.modrinth]
 mod-id = "gL8ijqNQ"
-version = "wvMlX85B"
+version = "r7YxZN9m"

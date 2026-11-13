@@ -1,0 +1,13 @@
+name = "Invasive Optimizations"
+filename = "invasiveopts-1.0.24.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/pynl8zUh/versions/kA1h4cai/invasiveopts-1.0.24.jar"
+hash-format = "sha1"
+hash = "efb1202813fed85b3296eda91e4552f8c19f208b"
+
+[update]
+[update.modrinth]
+mod-id = "pynl8zUh"
+version = "kA1h4cai"

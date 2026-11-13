@@ -1,0 +1,13 @@
+name = "Malum"
+filename = "malum-1.21.1-1.8.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/jgzwYsAN/versions/BIbVs1fo/malum-1.21.1-1.8.2.jar"
+hash-format = "sha1"
+hash = "7bea3f874f186a17ad3e271df145c179e81c2a1d"
+
+[update]
+[update.modrinth]
+mod-id = "jgzwYsAN"
+version = "BIbVs1fo"

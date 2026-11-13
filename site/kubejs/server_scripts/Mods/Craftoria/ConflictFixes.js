@@ -54,13 +54,26 @@ ServerEvents.recipes(e => {
     P: 'minecraft:paper',
   }).id('mcwholidays:stars_wall_deco');
 
-   // Vinery
+  // Vinery
   e.shaped('6x vinery:grapevine_stem', ['A', 'A', 'A'], {
     A: '#minecraft:logs',
   }).id('vinery:grapevine_stem');
 
   // Thaumon
   e.replaceInput({ id: 'thaumon:ancient_stone_bricks' }, 'thaumon:ancient_stone', 'thaumon:polished_ancient_stone');
+
+  // Create Deco
+  // Iron Support conficts with 'industrialforegoing:iron_gear'
+  e.shaped('4x createdeco:iron_support', ['I I', '   ', 'I I'],{
+    I: 'minecraft:iron_ingot',
+  }).id('createdeco:iron_support');
+
+  // Supplementaries
+  // item_shelf conflicts with Twilight Forest's drying_rack(s)
+  // e.remove({ id: 'supplementaries:item_shelf' });
+  e.shaped('supplementaries:item_shelf', [' A ', ' A ', ' A '], {
+    A: '#minecraft:wooden_slabs',
+  }).id('supplementaries:item_shelf');
 
   // Minecarts
   e.replaceOutput({ id: 'utilitarian:utility/hopper_minecart' }, 'minecraft:chest_minecart', 'minecraft:hopper_minecart');
@@ -103,7 +116,7 @@ ServerEvents.recipes(e => {
   e.shaped('2x minecraft:lead', [
     'SS ',
     'SB ',
-    '  S'
+    '  S',
   ], {
     S: '#c:strings',
     B: '#c:slimeballs',
@@ -112,7 +125,7 @@ ServerEvents.recipes(e => {
   e.shaped('cake', [
     'MMM',
     'SES',
-    'WWW'
+    'WWW',
   ], {
     M: '#c:foods/milk',
     S: '#c:sugars',

@@ -1,13 +1,13 @@
 name = "Rhino"
-filename = "rhino-2101.2.7-build.81.jar"
+filename = "rhino-2101.2.8-build.91.jar"
 side = "both"
 
 [download]
+url = "https://cdn.modrinth.com/data/sk9knFPE/versions/SqkDvOLG/rhino-2101.2.8-build.91.jar"
 hash-format = "sha1"
-hash = "5dcc80079095706645d567353095297948a41eea"
-mode = "metadata:curseforge"
+hash = "56eab1d464ed0811c64040c64bd047df5cbc3aad"
 
 [update]
-[update.curseforge]
-file-id = 7104526
-project-id = 416294
+[update.modrinth]
+mod-id = "sk9knFPE"
+version = "SqkDvOLG"
