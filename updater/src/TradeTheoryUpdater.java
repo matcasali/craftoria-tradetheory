@@ -137,6 +137,7 @@ public final class TradeTheoryUpdater {
         while (true) {
             if (packwiz(dir, url, "server") != 0) {
                 if (bootTest) return 3;
+                printManualDownloads(dir, url);
                 System.out.println("[Trade Theory] Couldn't update the pack. Starting with what's installed.");
             }
             String neoforge = packNeoForge(url);
@@ -219,6 +220,27 @@ public final class TradeTheoryUpdater {
             console.write((command + "\n").getBytes(StandardCharsets.UTF_8));
             console.flush();
         } catch (IOException ignored) {
+        }
+    }
+
+    /**
+     * The mods the pack lists as download-by-hand (manual.json next to pack.toml) that this server's mods folder lacks:
+     * their authors only allow downloads through CurseForge's own app, so packwiz can't fetch them.
+     */
+    private static void printManualDownloads(Path dir, String url) {
+        try {
+            String json = fetch(url.substring(0, url.lastIndexOf('/') + 1) + "manual.json");
+            Matcher entry = Pattern.compile("\"name\"\\s*:\\s*\"([^\"]*)\"\\s*,\\s*\"filename\"\\s*:\\s*\"([^\"]*)\"[^}]*?\"url\"\\s*:\\s*\"([^\"]*)\"").matcher(json);
+            boolean any = false;
+            while (entry.find()) {
+                if (Files.exists(dir.resolve("mods").resolve(entry.group(2)))) continue;
+                if (!any) System.out.println("[Trade Theory] These mods must be downloaded by hand (their authors allow CurseForge's app only):");
+                any = true;
+                System.out.println("  " + entry.group(1) + ": open " + entry.group(3) + ", download " + entry.group(2)
+                        + " and put it in " + dir.resolve("mods") + ", then start again.");
+            }
+        } catch (Exception ignored) {
+            // offline: the error above says enough
         }
     }
 

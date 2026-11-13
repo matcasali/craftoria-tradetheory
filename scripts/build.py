@@ -2,11 +2,17 @@
 
     python scripts/build.py check     # prints needed=true|false and tag=<latest> (for GitHub Actions)
     python scripts/build.py build     # assembles pack/ from the tag (runs packwiz refresh)
+    python scripts/build.py manual L  # from installer log L: drops blocked resource packs, lists blocked mods, makes check/
     python scripts/build.py site      # copies pack/ to site/ with the Prism instance zip, the server kit and the page
 
 Craftoria (TeamAOF/Craftoria) is a packwiz pack: every release tag holds pack.toml, index.toml and the files they
 list. This pack is that, plus the Trade Theory jar from extra/files/, plus pins for what Trade Theory needs newer than
 Craftoria ships (NeoForge, and the mods in extra/pins/). Settings are in pack.json.
+
+Downloads: Craftoria's files come from CurseForge, where some authors forbid downloads by anything but the CurseForge
+app. Every CurseForge file that exists byte for byte on Modrinth is taken from Modrinth instead (same file, same
+hash). What is still blocked shows up when the installer is tried on the pack (`manual`): blocked resource packs
+(cosmetic) are dropped, blocked mods stay and are listed (manual.json) for players and the server to download by hand.
 """
 import io
 import json
@@ -113,6 +119,14 @@ def build():
             print(f"  pin {pin.name}: {pin_version(theirs.read_text()) if theirs.exists() else 'absent'} -> {pin_version(ours)}")
             theirs.write_text(ours)
 
+    # resource packs only matter to players: the server never needs them
+    for rp in (PACK / "resourcepacks").glob("*.pw.toml"):
+        rp.write_text(re.sub(r'(?m)^side = "[^"]*"', 'side = "client"', rp.read_text(encoding="utf-8")), encoding="utf-8")
+
+    # the same file from Modrinth where it's there (CurseForge's API refuses some files to anything but its app)
+    moved = to_modrinth(PACK)
+    print(f"  {moved} CurseForge files taken from Modrinth instead (identical files)")
+
     # NeoForge: Craftoria's, unless Trade Theory needs a newer one
     versions = dict(upstream["versions"])
     if version_key(CONFIG["minNeoForge"]) > version_key(versions.get("neoforge", "0")):
@@ -130,8 +144,78 @@ def build():
     print(f"Pack built: Craftoria {tag}, Trade Theory {mod_version}, NeoForge {versions['neoforge']}")
 
 
+def toml_str(text):
+    """A TOML basic string (JSON's escaping, but characters outside ASCII as they are: TOML refuses surrogate escapes)."""
+    return json.dumps(text, ensure_ascii=False)
+
+
+def to_modrinth(pack):
+    """Points every CurseForge file that exists identically on Modrinth (by SHA-1) at Modrinth; how many."""
+    entries = {}
+    for f in [*pack.glob("mods/*.pw.toml"), *pack.glob("resourcepacks/*.pw.toml"), *pack.glob("shaderpacks/*.pw.toml")]:
+        d = tomllib.loads(f.read_text(encoding="utf-8"))
+        dl = d.get("download", {})
+        if dl.get("mode") == "metadata:curseforge" and dl.get("hash-format") == "sha1":
+            entries[dl["hash"]] = (f, d)
+    if not entries:
+        return 0
+    req = urllib.request.Request("https://api.modrinth.com/v2/version_files",
+                                 data=json.dumps({"hashes": list(entries), "algorithm": "sha1"}).encode(),
+                                 headers={**UA, "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        found = json.loads(r.read())
+    moved = 0
+    for sha1, version in found.items():
+        f, d = entries[sha1]
+        file = next((x for x in version["files"] if x["hashes"].get("sha1") == sha1), None)
+        if file is None:
+            continue
+        f.write_text("\n".join([
+            f'name = {toml_str(d["name"])}', f'filename = {toml_str(d["filename"])}', f'side = {toml_str(d.get("side", "both"))}', "",
+            "[download]", f'url = {toml_str(file["url"])}', 'hash-format = "sha1"', f'hash = "{sha1}"', "",
+            "[update]", "[update.modrinth]", f'mod-id = "{version["project_id"]}"', f'version = "{version["id"]}"', ""]), encoding="utf-8")
+        moved += 1
+    return moved
+
+
+def manual():
+    """From an installer log: drop the blocked resource packs, list the blocked mods, make check/ without them."""
+    log = Path(sys.argv[2]).read_text(encoding="utf-8", errors="replace")
+    blocked = {}
+    for m in re.finditer(r"Please go to (https://www\.curseforge\.com/\S+) and save this file to (.+?)\s*$", log, re.M):
+        path = m.group(2).strip().replace("\\", "/")
+        blocked[path.rsplit("/", 1)[-1]] = (path.rsplit("/", 2)[-2] if path.count("/") else "", m.group(1))
+    manual_mods, dropped = [], []
+    for f in [*PACK.glob("mods/*.pw.toml"), *PACK.glob("resourcepacks/*.pw.toml"), *PACK.glob("shaderpacks/*.pw.toml")]:
+        d = tomllib.loads(f.read_text(encoding="utf-8"))
+        # only CurseForge files can be blocked (a file now taken from Modrinth isn't, whatever an older log says)
+        if d["filename"] not in blocked or d["download"].get("mode") != "metadata:curseforge":
+            continue
+        url = blocked[d["filename"]][1]
+        if f.parent.name == "mods":
+            manual_mods.append({"name": d["name"], "filename": d["filename"], "folder": "mods", "side": d.get("side", "both"),
+                                "url": url, "sha1": d["download"].get("hash", ""), "pwtoml": f.name})
+        else:
+            dropped.append(d["name"])
+            f.unlink()
+    for name in dropped:
+        print(f"  dropped (blocked, cosmetic): {name}")
+    for mod in manual_mods:
+        print(f"  manual download: {mod['name']} ({mod['url']})")
+    (WORK / "manual.json").write_text(json.dumps(sorted(manual_mods, key=lambda m: m["name"].lower()), indent=2))
+    subprocess.run(["packwiz", "refresh"], cwd=PACK, check=True)
+    # check/: the pack without the manual mods, for the strict checks (nothing else may fail)
+    check = WORK / "check"
+    shutil.rmtree(check, ignore_errors=True)
+    shutil.copytree(PACK, check)
+    for mod in manual_mods:
+        (check / "mods" / mod["pwtoml"]).unlink()
+    subprocess.run(["packwiz", "refresh"], cwd=check, check=True)
+
+
 def site():
     built = json.loads((WORK / "built.json").read_text())
+    manual_mods = json.loads((WORK / "manual.json").read_text()) if (WORK / "manual.json").exists() else []
     tools = WORK / "tools"   # tradetheory-updater.jar and packwiz-installer-bootstrap.jar, made by the workflow
     shutil.rmtree(SITE, ignore_errors=True)
     shutil.copytree(PACK, SITE, ignore=shutil.ignore_patterns(".packwizignore"))
@@ -158,7 +242,17 @@ def site():
         z.write(tools / "tradetheory-updater.jar", "tradetheory-updater.jar")
         z.write(tools / "packwiz-installer-bootstrap.jar", "packwiz-installer-bootstrap.jar")
 
+    (SITE / "manual.json").write_text(json.dumps(manual_mods, indent=2))
+    if manual_mods:
+        items = "".join(f'<li><a href="{m["url"]}">{m["name"]}</a> <span class="file">{m["filename"]}</span></li>' for m in manual_mods)
+        manual_html = ('<div class="card"><h2>Mods to download by hand</h2><p>Their authors allow downloads only through'
+                       ' CurseForge, so at the first launch a window lists them. For each: open the link, download that'
+                       ' exact file and save it into the folder the window shows (the instance\'s <code>mods</code> folder),'
+                       f' then continue.</p><ul>{items}</ul></div>')
+    else:
+        manual_html = ""
     page = (ROOT / "prism" / "index.html").read_text()
+    page = page.replace("@MANUAL@", manual_html)
     for k, v in {"@NAME@": CONFIG["name"], "@ZIP_URL@": CONFIG["siteUrl"].rstrip("/") + "/" + CONFIG["instanceZip"],
                  "@CRAFTORIA@": built["tag"], "@MOD@": built["mod"], "@NEOFORGE@": neoforge}.items():
         page = page.replace(k, v)
@@ -166,8 +260,9 @@ def site():
 
     STATE.parent.mkdir(exist_ok=True)
     STATE.write_text(built["tag"] + "\n")
+    (STATE.parent / "manual.json").write_text(json.dumps(manual_mods, indent=2))
     print(f"Site ready in {SITE}")
 
 
 if __name__ == "__main__":
-    {"check": check, "build": build, "site": site}[sys.argv[1]]()
+    {"check": check, "build": build, "manual": manual, "site": site}[sys.argv[1]]()

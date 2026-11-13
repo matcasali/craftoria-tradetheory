@@ -17,6 +17,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: build
@@ -77,13 +78,29 @@ jobs:
           for i in $(seq 1 30); do curl -fsS http://localhost:8080/pack.toml > /dev/null && exit 0; sleep 1; done
           cat ../serve.log; exit 1
 
+      - name: Find what can't be downloaded automatically
+        if: steps.check.outputs.needed == 'true'
+        run: |
+          mkdir -p work/client
+          (cd work/client && java -jar ../tools/packwiz-installer-bootstrap.jar -g -s client http://localhost:8080/pack.toml > ../probe.log 2>&1) || true
+          grep -c "must be downloaded manually" work/probe.log || true
+          python scripts/build.py manual work/probe.log
+
+      - name: Serve the pack without the download-by-hand mods
+        if: steps.check.outputs.needed == 'true'
+        run: |
+          cd work/check
+          nohup packwiz serve --port 8081 > ../serve-check.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://localhost:8081/pack.toml > /dev/null && exit 0; sleep 1; done
+          cat ../serve-check.log; exit 1
+
       - name: Check every client mod downloads
         if: steps.check.outputs.needed == 'true'
         run: |
-          mkdir -p work/client && cd work/client
-          java -jar ../tools/packwiz-installer-bootstrap.jar -g -s client http://localhost:8080/pack.toml
+          cd work/client
+          java -jar ../tools/packwiz-installer-bootstrap.jar -g -s client http://localhost:8081/pack.toml
 
-      - name: Check every server mod downloads (and the server boots, once the EULA is accepted)
+      - name: Check every server mod downloads, and the server boots (once the EULA is accepted)
         if: steps.check.outputs.needed == 'true'
         env:
           TRADETHEORY_MEMORY: 5G
@@ -92,11 +109,30 @@ jobs:
           cp ../tools/*.jar .
           if [ "${{ vars.ACCEPT_MINECRAFT_EULA }}" = "true" ]; then
             echo "eula=true" > eula.txt
-            timeout 2400 java -jar tradetheory-updater.jar --server --boot-test http://localhost:8080/pack.toml
+            timeout 2400 java -jar tradetheory-updater.jar --server --boot-test http://localhost:8081/pack.toml
           else
-            java -jar packwiz-installer-bootstrap.jar -g -s server http://localhost:8080/pack.toml
+            java -jar packwiz-installer-bootstrap.jar -g -s server http://localhost:8081/pack.toml
             echo "::notice::Server boot test skipped: set the repository variable ACCEPT_MINECRAFT_EULA to true to run it."
           fi
+
+      - name: Tell the owner when the download-by-hand mods change
+        if: steps.check.outputs.needed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f state/manual.json ] && cmp -s work/manual.json state/manual.json; then exit 0; fi
+          python - > work/issue.md <<'PY'
+          import json
+          mods = json.load(open("work/manual.json"))
+          print("Craftoria ${{ steps.check.outputs.tag }} changed the mods that can only be downloaded by hand (their authors allow CurseForge's app only).\n")
+          print("**Your server needs these files in its `mods` folder** (download each exact file from its link):\n")
+          for m in mods:
+              print(f"- [{m['name']}]({m['url']}): `{m['filename']}`")
+          if not mods:
+              print("- none any more")
+          print("\nPlayers are shown the same list by the installer at their next launch.")
+          PY
+          gh issue create --title "Download by hand: mods changed (Craftoria ${{ steps.check.outputs.tag }})" --body-file work/issue.md
 
       - name: Make the site
         if: steps.check.outputs.needed == 'true'
