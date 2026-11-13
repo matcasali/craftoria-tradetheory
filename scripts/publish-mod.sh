@@ -7,9 +7,12 @@ set -e
 cd "$(dirname "$0")/.."
 MOD="${1:-../chunkshop}"
 (cd "$MOD" && ./gradlew -q jar)
-JAR=$(ls "$MOD"/build/libs/tradetheory-*.jar | grep -v -e sources -e javadoc | head -1)
-VERSION=$(basename "$JAR" .jar | sed 's/^tradetheory-//')
+# the jar of the version gradle.properties names (build/libs keeps older ones too)
+VERSION=$(sed -n 's/^mod_version=//p' "$MOD/gradle.properties" | tr -d '\r')
+JAR="$MOD/build/libs/tradetheory-$VERSION.jar"
+[ -f "$JAR" ] || { echo "No $JAR: did the build fail?" >&2; exit 1; }
 git rm -q --ignore-unmatch extra/files/tradetheory-*.jar
+mkdir -p extra/files   # git rm takes the folder away with its only jar
 cp "$JAR" extra/files/
 git add extra/files
 git commit -m "Trade Theory $VERSION"
