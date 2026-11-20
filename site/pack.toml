@@ -1,12 +1,12 @@
 name = "Craftoria + Trade Theory"
 author = "Casupola, Raiden"
-version = "1.37.0+tradetheory-1.2.1"
+version = "1.37.0+tradetheory-1.3.0"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "8bc09a8627c524c66b820351920643eb4abca8ecbb8e00fdfadf23deb0afc88d"
+hash = "81ebea446853ade3a91bfefde5488f83e451d73d2bdc919dcee95a35cf07d23b"
 
 [versions]
 minecraft = "1.21.1"
