@@ -3,14 +3,14 @@
     python scripts/build.py check     # prints needed=true|false and tag=<Craftoria's latest version> (for GitHub Actions)
     python scripts/build.py build     # assembles pack/ from the tag (runs packwiz refresh)
     python scripts/build.py manual L  # from installer log L: lists the blocked files (download by hand), makes check/
-    python scripts/build.py curseforge  # the players' pack: Craftoria's own CurseForge zip + Trade Theory (for Prism)
+    python scripts/build.py curseforge  # the players' pack: Craftoria's own CurseForge zip + the bundled mods
     python scripts/build.py site      # copies pack/ to site/ with the server kit, the page and the zip's redirect
 
 Craftoria (TeamAOF/Craftoria) is a packwiz pack: every release tag holds pack.toml, index.toml and the files they
-list. This pack is that, plus the Trade Theory jar from extra/files/, plus pins for what Trade Theory needs newer than
-Craftoria ships (NeoForge: the lower bound its jar declares; mods: extra/pins/). Settings are in pack.json.
+list. This pack is that, plus Trade Theory and OrbitPerm from extra/files/, plus pins for dependencies newer than
+Craftoria ships (NeoForge: the highest minimum the bundled jars declare; mods: extra/pins/). Settings are in pack.json.
 
-Two outputs. Players: a CurseForge-format zip, Craftoria's own for that release with Trade Theory (and pinned mods)
+Two outputs. Players: a CurseForge-format zip, Craftoria's own for that release with the bundled and pinned mods
 added as override files, released on GitHub (too big for Pages); Prism imports it from the site's link (a redirect to
 the latest release), downloads with its own downloader, asks for blocked files in its own window, and updates it from
 the same link (Edit instance > Modpack > Update Pack). The server: the packwiz pack in site/, which the server kit
@@ -91,9 +91,22 @@ def pin_version(pw_toml_text):
     return m.group(1) if m else "0"
 
 
+def bundled_jars():
+    """Return exactly one jar for each mod maintained alongside the pack."""
+    files = ROOT / "extra" / "files"
+    jars = []
+    for pattern in ("tradetheory-*.jar", "orbitperm-neoforge-*.jar"):
+        matches = sorted(files.glob(pattern))
+        if len(matches) != 1:
+            sys.exit(f"extra/files must hold exactly one {pattern}, found {[jar.name for jar in matches]}")
+        jars.append(matches[0])
+    return jars
+
+
 def build():
     tag, ref = release()
     print(f"Building from Craftoria {tag} ({ref})")
+    jars = bundled_jars()
     shutil.rmtree(WORK, ignore_errors=True)
     PACK.mkdir(parents=True)
 
@@ -119,13 +132,11 @@ def build():
     shutil.copy2(src / "index.toml", PACK / "index.toml")   # packwiz refresh rewrites it from what's in the folder
     ignore = (src / ".packwizignore").read_text() if (src / ".packwizignore").exists() else ""
     # our own jars are files of the pack (Craftoria's rules leave jars out of mods/)
-    (PACK / ".packwizignore").write_text(ignore.rstrip("\n") + "\n\n# Trade Theory pack\n!/mods/tradetheory-*.jar\n")
+    included_jars = "".join(f"!/mods/{jar.name}\n" for jar in jars)
+    (PACK / ".packwizignore").write_text(ignore.rstrip("\n") + "\n\n# Bundled mods\n" + included_jars)
 
-    # Trade Theory
-    jars = sorted((ROOT / "extra" / "files").glob("tradetheory-*.jar"))
-    if len(jars) != 1:
-        sys.exit(f"extra/files must hold exactly one tradetheory-*.jar, found {[j.name for j in jars]}")
-    shutil.copy2(jars[0], PACK / "mods" / jars[0].name)
+    for jar in jars:
+        shutil.copy2(jar, PACK / "mods" / jar.name)
     mod_version = re.search(r"tradetheory-(.+)\.jar$", jars[0].name).group(1)
 
     # pins: a mod Trade Theory needs newer than Craftoria ships
@@ -166,12 +177,11 @@ def build():
     moved = to_modrinth(PACK)
     print(f"  {moved} CurseForge files taken from Modrinth instead (identical files)")
 
-    # NeoForge: Craftoria's, unless Trade Theory needs a newer one
+    # Keep Craftoria's NeoForge unless a bundled mod requires a newer version.
     versions = dict(upstream["versions"])
-    # (the oldest Trade Theory accepts, from its jar: a newer NeoForge than Craftoria tested is a risk for 500 mods)
-    needed = neoforge_min(jars[0])
+    needed = max((neoforge_min(jar) for jar in jars), key=version_key)
     if version_key(needed) > version_key(versions.get("neoforge", "0")):
-        print(f"  NeoForge {versions.get('neoforge')} -> {needed} (Trade Theory needs it)")
+        print(f"  NeoForge {versions.get('neoforge')} -> {needed} (required by a bundled mod)")
         versions["neoforge"] = needed
 
     lines = [f'name = "{CONFIG["name"]}"', f'author = "{CONFIG["author"]}"', f'version = "{tag}+tradetheory-{mod_version}"',
@@ -220,11 +230,11 @@ def craftoria_curseforge_zip(src):
 
 
 def curseforge():
-    """The players' pack: Craftoria's CurseForge zip, renamed, with Trade Theory and the pins as override files."""
+    """The players' pack: Craftoria's CurseForge zip with bundled jars and pins as overrides."""
     built = json.loads((WORK / "built.json").read_text())
     print(f"Craftoria's CurseForge pack: {built['curseforgeZip']}")
+    jars = bundled_jars()
     original = get(built["curseforgeZip"])
-    jar = next((ROOT / "extra" / "files").glob("tradetheory-*.jar"))
     out = WORK / CONFIG["instanceZip"]
     with zipfile.ZipFile(io.BytesIO(original)) as src, zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         manifest = json.loads(src.read("manifest.json"))
@@ -246,7 +256,8 @@ def curseforge():
         for info in src.infolist():
             if info.filename != "manifest.json":
                 z.writestr(info, src.read(info))
-        z.write(jar, f"{overrides}/mods/{jar.name}")
+        for jar in jars:
+            z.write(jar, f"{overrides}/mods/{jar.name}")
         for pin in built["pins"]:
             blob = get(pin["url"])
             if hashlib.new(pin["hashFormat"], blob).hexdigest() != pin["hash"]:

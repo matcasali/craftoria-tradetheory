@@ -1,6 +1,6 @@
 # Craftoria + Trade Theory
 
-[Craftoria](https://github.com/TeamAOF/Craftoria) with the Trade Theory mod, as a self-updating pack for Prism
+[Craftoria](https://github.com/TeamAOF/Craftoria) with Trade Theory and OrbitPerm, as a self-updating pack for Prism
 Launcher, published at **https://craftoria-tradetheory.pages.dev**.
 
 ## Players
@@ -12,9 +12,11 @@ Launch. Every launch brings the pack up to date.
   built into the pack, checked (every client and server mod must download; with the EULA variable set, a server
   must boot) and committed to `site/`, which Cloudflare Pages publishes. A failed check publishes nothing.
 - **Trade Theory:** `scripts/publish-mod.sh` builds the mod and pushes its jar; the workflow does the rest.
-- **What Trade Theory needs newer than Craftoria ships** is raised in the pack: NeoForge (the minimum the
-  Trade Theory jar declares) and the mods in `extra/pins/` (none now: Trade Theory runs on Craftoria's GeckoLib), only while Craftoria's are older.
-- **Players (now):** a CurseForge-format zip: Craftoria's own for the release, with Trade Theory and pins added as
+- **OrbitPerm:** replace its jar in `extra/files/` and push the change. The workflow bundles it on both the client and
+  server. Open OrbitPerm from the inventory sidebar to manage fine-grained FTB claim permissions.
+- **Dependencies:** the pack keeps Craftoria's NeoForge version unless a bundled mod declares a higher minimum.
+  Mods in `extra/pins/` replace Craftoria's copies only while Craftoria's are older.
+- **Players (now):** a CurseForge-format zip: Craftoria's own for the release, with bundled mods and pins added as
   overrides (`build.py curseforge`), attached to a GitHub release; the site's link redirects to the latest one.
   Prism imports it and updates it from the same link (Edit instance > Modpack > Update Pack) with its own downloader
   and Blocked mods window. The text below describes the updater's player mode, which is no longer used.
@@ -31,7 +33,7 @@ Launch. Every launch brings the pack up to date.
 | Path | What |
 |---|---|
 | `pack.json` | Name, site address, Craftoria repository, minimum NeoForge |
-| `extra/files/` | The Trade Theory jar |
+| `extra/files/` | One Trade Theory jar and one OrbitPerm jar |
 | `extra/pins/` | Mods to raise when Craftoria's are older |
 | `scripts/build.py` | `check` / `build` / `site` |
 | `updater/` | The updater for Prism and the server |
