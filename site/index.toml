@@ -22866,8 +22866,8 @@ hash = "4c00caba57fa2aa18ebf941fbe897ab444252f6baf816f5d1fea9430ac5b3779"
 metafile = true
 
 [[files]]
-file = "mods/tradetheory-1.4.0.jar"
-hash = "9d790d67e2ad2ee8a7bbfe34bb77d2be6e100bc32dec1c4bd6dea736edf12a38"
+file = "mods/tradetheory-1.4.1.jar"
+hash = "870faae24e548ded78d5594eb1872a1b6c06e7cfd17cb38d4e630c39b3e58594"
 
 [[files]]
 file = "mods/transfer-labels.pw.toml"
